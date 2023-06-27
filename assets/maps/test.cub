@@ -1,0 +1,16 @@
+NO ./assets/xpm/wolfenstein/bluestone.xpm
+SO ./xpm/wolfenstein/greystone.xpm
+WE ./xpm/wolfenstein/purplestone.xpm
+EA ./xpm/wolfenstein/red.xpm
+
+F 129,129,129
+C 56,56,56
+
+    111
+    101
+    101
+11111001111
+10000000001
+10000N00001
+10000000001
+11111111111

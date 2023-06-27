@@ -6,7 +6,7 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 12:01:02 by samy              #+#    #+#             */
-/*   Updated: 2023/06/27 15:00:35 by samy             ###   ########.fr       */
+/*   Updated: 2023/06/27 22:00:47 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,6 @@ void	check_file(char *path, char *file_type, t_game *game)
 	}
 }
 
-void	print_binary_rgb(int rgb)
-{
-	int	i;
-
-	i = 0;
-	while (i < 24)
-	{
-		printf("%d", (rgb >> i) & 1);
-		i++;
-	}
-	printf("\n");
-}
-
 int	open_file(char *path)
 {
 	int	fd;
@@ -49,23 +36,6 @@ int	open_file(char *path)
 	if (fd == -1)
 		error("Can't open file", NULL);
 	return (fd);
-}
-
-void	print_game(t_game *game)
-{
-	int	i;
-
-	i = 0;
-	printf("NO: %s\n", game->textures.no_texture_path);
-	printf("SO: %s\n", game->textures.so_texture_path);
-	printf("WE: %s\n", game->textures.we_texture_path);
-	printf("EA: %s\n", game->textures.ea_texture_path);
-	print_binary_rgb(game->ceiling_color);
-	print_binary_rgb(game->floor_color);
-	printf("Map width: %d\n", game->map_width);
-	printf("Map height: %d\n", game->map_height);
-	while (i < game->map_height)
-		printf("%s\n", game->map[i++]);
 }
 
 static t_game	*init_game(void)
@@ -101,6 +71,5 @@ t_game	*parsing(int argc, char **argv)
 	get_data(open_file(argv[1]), game);
 	create_map(game);
 	is_valid_map(game);
-	print_game(game);
-	return (NULL);
+	return (game);
 }

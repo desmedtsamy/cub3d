@@ -24,7 +24,8 @@ static void	set_texture(t_game *game, char **path, void **texture,
 	*path = ft_strdup(xpm_path);
 	check_file(xpm_path, ".xpm", game);
 	(void)texture;
-	/*
+}
+/*
 	*texture = mlx_xpm_file_to_image(game->mlx_ptr, xpm_path, &size, &size);
 	if (!*texture)
 	{
@@ -33,7 +34,6 @@ static void	set_texture(t_game *game, char **path, void **texture,
 		error("Texture path is not valid", game);
 	}
 	*/
-}
 
 void	get_texture(char *pos, char *xpm_path, t_game *game)
 {

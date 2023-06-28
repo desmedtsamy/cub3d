@@ -6,7 +6,7 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 12:01:02 by samy              #+#    #+#             */
-/*   Updated: 2023/06/28 11:13:40 by samy             ###   ########.fr       */
+/*   Updated: 2023/06/28 21:25:40 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ static t_game	*init_game(void)
 	if (!game)
 		error("Malloc error", NULL);
 	game->mlx = mlx_init();
+	game->window = mlx_new_window(game->mlx, WIN_W, WIN_H, "Cub3D");
 	game->textures.no_texture = NULL;
 	game->textures.so_texture = NULL;
 	game->textures.we_texture = NULL;
@@ -58,6 +59,10 @@ static t_game	*init_game(void)
 	game->map_height = 0;
 	game->map = NULL;
 	game->map_list = NULL;
+	game->move.forward = 0;
+	game->move.backward = 0;
+	game->move.left = 0;
+	game->move.right = 0;
 	return (game);
 }
 

@@ -6,7 +6,7 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 11:54:40 by samy              #+#    #+#             */
-/*   Updated: 2023/06/27 17:41:29 by samy             ###   ########.fr       */
+/*   Updated: 2023/06/28 10:41:27 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdlib.h>
 
 # define XPM_SIZE 64
+# define DESTROYNOTIFY	17
 
 typedef struct s_pos
 {
@@ -57,7 +58,8 @@ typedef struct s_game
 	t_list			*map_list;
 	int				map_width;
 	int				map_height;
-	void			*mlx_ptr;
+	void			*mlx;
+	void			*window;
 	t_textures		textures;
 	int				floor_color;
 	int				ceiling_color;

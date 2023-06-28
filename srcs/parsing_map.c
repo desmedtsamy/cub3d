@@ -6,7 +6,7 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:13:03 by samy              #+#    #+#             */
-/*   Updated: 2023/06/27 14:55:29 by samy             ###   ########.fr       */
+/*   Updated: 2023/06/28 11:12:18 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,13 +104,13 @@ int	is_valid_map(t_game *game)
 		while (game->map[row][col])
 		{
 			if (!is_valid_elem(game->map[row][col]))
-				return (0);
+				error("Invalid element", game);
 			if (is_start_pos(game->map[row][col]))
 				if (!set_start_pos(row, col, &start_pos, game))
-					return (0);
-			if (game->map[row][col] == '0')
+					error("multiple start position", game);
+			if (game->map[row][col] == '0' || is_start_pos(game->map[row][col]))
 				if (!is_valid_pos(row, col, game->map))
-					return (0);
+					error("map wasn't surrounded by walls", game);
 			col++;
 		}
 		row++;

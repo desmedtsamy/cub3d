@@ -6,7 +6,7 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 11:48:42 by samy              #+#    #+#             */
-/*   Updated: 2023/06/27 22:00:48 by samy             ###   ########.fr       */
+/*   Updated: 2023/06/28 11:13:46 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,8 @@ int	main(int argc, char **argv)
 
 	game = parsing(argc, argv);
 	print_game(game);
+	game->window = mlx_new_window(game->mlx, 420, 420, "Cub3D");
+	mlx_hook(game->window, DESTROYNOTIFY, 0, NULL, &game);
+	mlx_loop(game->mlx);
 	return (0);
 }

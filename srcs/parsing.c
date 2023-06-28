@@ -6,7 +6,7 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 12:01:02 by samy              #+#    #+#             */
-/*   Updated: 2023/06/27 22:00:47 by samy             ###   ########.fr       */
+/*   Updated: 2023/06/28 11:13:40 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ static t_game	*init_game(void)
 	game = malloc(sizeof(t_game));
 	if (!game)
 		error("Malloc error", NULL);
+	game->mlx = mlx_init();
 	game->textures.no_texture = NULL;
 	game->textures.so_texture = NULL;
 	game->textures.we_texture = NULL;

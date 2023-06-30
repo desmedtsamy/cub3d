@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hgeissle <hgeissle@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 11:54:40 by samy              #+#    #+#             */
-/*   Updated: 2023/06/28 22:14:42 by samy             ###   ########.fr       */
+/*   Updated: 2023/06/30 14:54:07 by hgeissle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include "../libft/libft.h"
 # include "game.h"
 # include "minimap.h"
+# include "math.h"
 
 # define DESTROYNOTIFY 17
 # define KEYPRESS 2
@@ -34,7 +35,7 @@ typedef struct s_player
 {
 	t_pos		pos;
 	t_pos		start_pos;
-	char		orientation;
+	double		orientation;
 }				t_player;
 
 typedef struct s_textures

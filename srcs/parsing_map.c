@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_map.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hgeissle <hgeissle@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:13:03 by samy              #+#    #+#             */
-/*   Updated: 2023/06/28 21:14:36 by samy             ###   ########.fr       */
+/*   Updated: 2023/06/30 14:58:18 by hgeissle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,14 @@ static int	set_start_pos(int row, int col, int *start_pos, t_game *game)
 	game->player.pos.y = row;
 	game->player.start_pos.x = col;
 	game->player.start_pos.y = row;
+	if (game->map[row][col] == 'E')
+		game->player.orientation = 0.0 * (M_PI / 180.0);
+	if (game->map[row][col] == 'N')
+		game->player.orientation = 90.0 * (M_PI / 180.0);
+	if (game->map[row][col] == 'W')
+		game->player.orientation = 180.0 * (M_PI / 180.0);
+	if (game->map[row][col] == 'S')
+		game->player.orientation = 270.0 * (M_PI / 180.0);
 	return (1);
 }
 

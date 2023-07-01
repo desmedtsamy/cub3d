@@ -6,7 +6,7 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 00:36:50 by samy              #+#    #+#             */
-/*   Updated: 2023/07/02 00:39:16 by samy             ###   ########.fr       */
+/*   Updated: 2023/07/02 00:46:15 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,8 @@ void	init_minimap(t_game *game)
 	mini->player_color = 0xff0000;
 }
 
-t_game	*init_game(void)
+t_game	*init_game(t_game *game)
 {
-	t_game	*game;
-
-	game = malloc(sizeof(t_game));
-	if (!game)
-		error("Malloc error", NULL);
 	game->mlx = mlx_init();
 	game->window = mlx_new_window(game->mlx, WIN_W, WIN_H, "Cub3D");
 	game->textures.no_texture = NULL;

@@ -6,7 +6,7 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 11:48:42 by samy              #+#    #+#             */
-/*   Updated: 2023/07/02 00:35:11 by samy             ###   ########.fr       */
+/*   Updated: 2023/07/02 00:47:52 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,16 +117,16 @@ static int	deal_keys_release(int key, void *param)
 
 int	main(int argc, char **argv)
 {
-	t_game	*game;
+	t_game	game;
 
-	game = parsing(argc, argv);
-	print_game(game);
-	init_minimap(game);
-	minimap(game);
-	mlx_hook(game->window, KEYPRESS, (1L << 0), deal_keys, game);
-	mlx_hook(game->window, KEYRELEASE, (1L << 1), deal_keys_release, game);
-	mlx_loop_hook(game->mlx, update, game);
-	mlx_hook(game->window, DESTROYNOTIFY, 0, quit, game);
-	mlx_loop(game->mlx);
+	parsing(argc, argv, &game);
+	print_game(&game);
+	init_minimap(&game);
+	minimap(&game);
+	mlx_hook(game.window, KEYPRESS, (1L << 0), deal_keys, &game);
+	mlx_hook(game.window, KEYRELEASE, (1L << 1), deal_keys_release, &game);
+	mlx_loop_hook(game.mlx, update, &game);
+	mlx_hook(game.window, DESTROYNOTIFY, 0, quit, &game);
+	mlx_loop(game.mlx);
 	return (0);
 }

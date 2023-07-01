@@ -6,85 +6,107 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:51:23 by samy              #+#    #+#             */
-/*   Updated: 2023/06/28 22:17:53 by samy             ###   ########.fr       */
+/*   Updated: 2023/07/02 00:40:29 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void	draw_square(t_game *g, t_pos *pos, int size, int color)
+void	print_cell(t_pos *pos, t_pos *test, char cell, t_game *game)
 {
-	int	i;
-	int	j;
+	t_rect		rect;
+	t_minimap	*mini;
+	t_pos		pos_max;
 
-	i = 0;
-	while (i < size)
+	set_pos((MINI_X + MINI_START), (MINI_Y + MINI_START), &pos_max);
+	mini = &game->minimap;
+	set_rect(pos, test, &rect);
+	if (cell == '1')
+		draw_rect(&rect, &pos_max, mini->wall_color, game);
+	else if (is_accesible(cell))
+		draw_rect(&rect, &pos_max, mini->floor_color, game);
+}
+
+void	print_map(float x, float y, t_pos *ofset, t_game *g)
+{
+	t_pos	pos;
+	t_pos	size;
+	int		i;
+	int		j;
+
+	pos.y = MINI_START;
+	i = -1;
+	while (++i + y < g->map_height && pos.y < (MINI_Y + MINI_START))
 	{
-		j = 0;
-		while (j < size)
+		pos.x = MINI_START;
+		j = -1;
+		while (++j + x < g->map_width && pos.x < (MINI_X + MINI_START))
 		{
-			mlx_pixel_put(g->mlx, g->window, pos->x + j, pos->y + i, color);
-			j++;
+			size.y = MINI_SQUARE_SIZE;
+			size.x = MINI_SQUARE_SIZE;
+			if (j == 0)
+				size.x = MINI_SQUARE_SIZE - ofset->x;
+			if (i == 0)
+				size.y = MINI_SQUARE_SIZE - ofset->y;
+			if (j + x >= 0 && i + y >= 0)
+				print_cell(&pos, &size, g->map[(int)(i + y)][(int)(j + x)], g);
+			pos.x += size.x;
 		}
-		i++;
+		pos.y += size.y;
 	}
 }
 
-void	init_minimap(t_game *game)
+static void	print_pos(t_game *game)
 {
-	t_minimap	*mini;
+	t_pos	pos;
+	t_pos	size;
+	char	*pos_x;
+	char	*pos_y;
+	t_rect	rect;
 
-	mini = &game->minimap;
-	mini->start_pos.x = MINIMAP_START_POS;
-	mini->start_pos.y = MINIMAP_START_POS;
-	mini->square_size = 10;
-	mini->floor_color = 0x63656e;
-	mini->bg_color = 0x1e202a;
-	mini->wall_color = 0x2b2d3d;
-	mini->player_color = 0xff0000;
+	set_pos(MINI_START, MINI_START + MINI_Y, &pos);
+	set_pos(40, 15, &size);
+	pos_x = ft_itoa(game->player.pos.x);
+	pos_y = ft_itoa(game->player.pos.y);
+	draw_rect(set_rect(&pos, &size, &rect), NULL, game->minimap.bg_color, game);
+	pos.x += 5;
+	pos.y += 10;
+	mlx_string_put(game->mlx, game->window, pos.x, pos.y, 0xccccff, pos_x);
+	pos.x += 20;
+	mlx_string_put(game->mlx, game->window, pos.x, pos.y, 0xccccff, pos_y);
+	free(pos_x);
+	free(pos_y);
 }
 
-void	draw_minimap(t_game *game)
+void	draw_minimap(t_pos *start, t_pos *size, t_pos *pos_max, t_game *g)
 {
-	t_minimap	*mini;
-	t_pos		pos;
-	int			i;
-	int			j;
-	int			x;
-	int			y;
+	t_pos	pos;
+	t_pos	ofset;
+	float	x;
+	float	y;
+	t_rect	rect;
 
-	x = game->player.pos.x - ((MINIMAP_SIZE / 10) / 2);
-	y = game->player.pos.y - ((MINIMAP_SIZE / 10) / 2);
-	mini = &game->minimap;
-	pos.x = mini->start_pos.x;
-	pos.y = mini->start_pos.y;
-	i = 0;
-	draw_square(game, &mini->start_pos, MINIMAP_SIZE, mini->bg_color);
-	while (i + y < game->map_height && i < (MINIMAP_SIZE / 10))
-	{
-		j = 0;
-		while (j + x < game->map_width && j < (MINIMAP_SIZE / 10))
-		{
-			if (i + y < 0 || j + x < 0)
-				draw_square(game, &pos, mini->square_size, mini->bg_color);
-			else if (i + y == (int)game->player.pos.y && j
-				+ x == (int)game->player.pos.x)
-				draw_square(game, &pos, mini->square_size, mini->player_color);
-			else if (game->map[i + y][j + x] == '1')
-				draw_square(game, &pos, mini->square_size, mini->wall_color);
-			else if (game->map[i + y][j + x] == '0')
-				draw_square(game, &pos, mini->square_size, mini->floor_color);
-			pos.x += mini->square_size;
-			j++;
-		}
-		pos.x = mini->start_pos.x;
-		pos.y += mini->square_size;
-		i++;
-	}
+	x = g->player.pos.x - ((MINI_X / MINI_SQUARE_SIZE) / 2);
+	y = g->player.pos.y - ((MINI_Y / MINI_SQUARE_SIZE) / 2);
+	set_pos((g->player.pos.x - (int)g->player.pos.x) * MINI_SQUARE_SIZE,
+		(g->player.pos.y - (int)g->player.pos.y) * MINI_SQUARE_SIZE, &ofset);
+	draw_rect(set_rect(start, size, &rect), pos_max, g->minimap.bg_color, g);
+	print_map(x, y, &ofset, g);
+	set_pos((MINI_X / 2) + MINI_START, (MINI_Y / 2) + MINI_START, &pos);
+	draw_rect(set_rect(&pos, NULL, &rect), pos_max, g->minimap.player_color, g);
+	pos.x += MINI_START / 2;
+	pos.y += MINI_START / 2;
+	print_pos(g);
 }
 
 void	minimap(t_game *game)
 {
-	init_minimap(game);
-	draw_minimap(game);
+	t_pos	size;
+	t_pos	start;
+	t_pos	pos_max;
+
+	set_pos(MINI_START, MINI_START, &start);
+	set_pos(MINI_X, MINI_Y, &size);
+	set_pos((MINI_X + MINI_START), (MINI_Y + MINI_START), &pos_max);
+	draw_minimap(&start, &size, &pos_max, game);
 }

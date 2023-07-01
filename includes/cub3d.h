@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hgeissle <hgeissle@student.s19.be>         +#+  +:+       +#+        */
+/*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 11:54:40 by samy              #+#    #+#             */
-/*   Updated: 2023/06/30 14:54:07 by hgeissle         ###   ########.fr       */
+/*   Updated: 2023/07/01 14:30:58 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,14 @@
 # define DESTROYNOTIFY 17
 # define KEYPRESS 2
 # define KEYRELEASE 3
+# define UP 13
+# define DOWN 1
+# define LEFT 0
+# define RIGHT 2
+# define LEFT_ARROW 123
+# define RIGHT_ARROW 124
+# define ESC_KEY 53
+# define SPEED 0.5
 
 typedef struct s_color
 {
@@ -77,4 +85,5 @@ int				is_start_pos(char c);
 int				is_accesible(char c);
 int				is_valid_elem(char c);
 void			get_texture(char *pos, char *xpm_path, t_game *game);
+void			set_pos(int x, int y, t_pos *pos);
 #endif

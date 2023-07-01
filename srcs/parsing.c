@@ -6,7 +6,7 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 12:01:02 by samy              #+#    #+#             */
-/*   Updated: 2023/06/28 21:25:40 by samy             ###   ########.fr       */
+/*   Updated: 2023/07/02 00:37:07 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,34 +36,6 @@ int	open_file(char *path)
 	if (fd == -1)
 		error("Can't open file", NULL);
 	return (fd);
-}
-
-static t_game	*init_game(void)
-{
-	t_game	*game;
-
-	game = malloc(sizeof(t_game));
-	if (!game)
-		error("Malloc error", NULL);
-	game->mlx = mlx_init();
-	game->window = mlx_new_window(game->mlx, WIN_W, WIN_H, "Cub3D");
-	game->textures.no_texture = NULL;
-	game->textures.so_texture = NULL;
-	game->textures.we_texture = NULL;
-	game->textures.ea_texture = NULL;
-	game->textures.no_texture_path = NULL;
-	game->textures.so_texture_path = NULL;
-	game->textures.we_texture_path = NULL;
-	game->textures.ea_texture_path = NULL;
-	game->map_width = 0;
-	game->map_height = 0;
-	game->map = NULL;
-	game->map_list = NULL;
-	game->move.forward = 0;
-	game->move.backward = 0;
-	game->move.left = 0;
-	game->move.right = 0;
-	return (game);
 }
 
 t_game	*parsing(int argc, char **argv)

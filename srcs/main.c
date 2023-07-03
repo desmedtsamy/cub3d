@@ -6,7 +6,7 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 11:48:42 by samy              #+#    #+#             */
-/*   Updated: 2023/07/02 00:47:52 by samy             ###   ########.fr       */
+/*   Updated: 2023/07/03 13:19:16 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,7 @@ int	quit(void *param)
 	t_game	*game;
 
 	game = (t_game *)param;
-	mlx_destroy_image(game->mlx, game->textures.no_texture);
-	mlx_destroy_image(game->mlx, game->textures.so_texture);
-	mlx_destroy_image(game->mlx, game->textures.we_texture);
-	mlx_destroy_image(game->mlx, game->textures.ea_texture);
-	mlx_destroy_window(game->mlx, game->window);
+	free_game(game);
 	exit(0);
 	return (0);
 }
@@ -71,8 +67,8 @@ static int	update(void *param)
 		move((player_pos->x - SPEED), (player_pos->y), game);
 	if (game->move.right)
 		move((player_pos->x + SPEED), (player_pos->y), game);
-	if (game->move.forward || game->move.backward || game->move.left
-		|| game->move.right)
+	//if (game->move.forward || game->move.backward || game->move.left
+	//	|| game->move.right)
 		minimap(game);
 	return (0);
 }
@@ -92,10 +88,10 @@ static int	deal_keys(int key, void *param)
 		game->move.left = 1;
 	else if (key == RIGHT)
 		game->move.right = 1;
-	if (key == LEFT_ARROW)
-		game->player.orientation -= 10;
+	else if (key == LEFT_ARROW)
+		game->player.orientation -= 15;
 	else if (key == RIGHT_ARROW)
-		game->player.orientation += 10;
+		game->player.orientation += 15;
 	return (0);
 }
 

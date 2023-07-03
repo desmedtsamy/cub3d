@@ -6,7 +6,7 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 12:06:35 by samy              #+#    #+#             */
-/*   Updated: 2023/06/27 17:41:20 by samy             ###   ########.fr       */
+/*   Updated: 2023/07/03 14:09:06 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@ static void	get_color_value(int *color, char *str, t_game *game)
 	r = ft_atoi(split[0]);
 	g = ft_atoi(split[1]);
 	b = ft_atoi(split[2]);
-	if (r < 0 || r > 255 || g < 0 || g > 255
-		|| b < 0 || b > 255)
+	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
 		error("Wrong color value", game);
 	ft_free_split(split);
 	*color = (r << 16 | g << 8 | b);
@@ -49,7 +48,7 @@ static void	get_color(char *pos, char *color, t_game *game)
 		error("Wrong color", game);
 }
 
-static void	get_map(char *line, t_game *game)
+static int	get_map(char *line, t_game *game)
 {
 	t_list	*new;
 
@@ -59,21 +58,30 @@ static void	get_map(char *line, t_game *game)
 	if (!new)
 		error("Malloc error", game);
 	ft_lstadd_back(&game->map_list, new);
+	return (42);
 }
 
-static int	check_line(char *line, char *name, char *value, t_game *game)
+static int	check_line(t_data *d, t_game *game)
 {
-	if (ft_strcmp(name, "NO") == 0 || ft_strcmp(name, "SO") == 0)
-		get_texture(name, value, game);
-	else if (ft_strcmp(name, "WE") == 0 || ft_strcmp(name, "EA") == 0)
-		get_texture(name, value, game);
-	else if (ft_strcmp(name, "F") == 0 || ft_strcmp(name, "C") == 0)
-		get_color(name, value, game);
-	else if (!ft_strncmp(name, "1", 1))
+	if ((ft_strcmp(d->name, "NO") == 0 || ft_strcmp(d->name, "SO") == 0
+			|| ft_strcmp(d->name, "WE") == 0 || ft_strcmp(d->name, "EA") == 0)
+		&& d->textures-- > 0)
 	{
-		get_map(line, game);
-		return (42);
+		if (d->colors == 2 || d->colors == 0)
+			get_texture(d->name, d->value, game);
+		else
+			error("cub file error", game);
 	}
+	else if ((ft_strcmp(d->name, "F") == 0 || ft_strcmp(d->name, "C") == 0)
+			&& d->colors-- > 0)
+	{
+		if (d->textures == 4 || d->textures == 0)
+			get_color(d->name, d->value, game);
+		else
+			error("cub file error", game);
+	}
+	else if (!ft_strncmp(d->name, "1", 1))
+		return (get_map(d->line, game));
 	else
 		return (1);
 	return (0);
@@ -81,29 +89,34 @@ static int	check_line(char *line, char *name, char *value, t_game *game)
 
 void	get_data(int fd, t_game *game)
 {
-	char	*line;
 	char	**split;
 	int		result;
-	int		is_map;
+	t_data	d;
 
-	is_map = 0;
-	line = get_next_line(fd);
-	while (line)
+	d.textures = 4;
+	d.colors = 2;
+	d.map = 0;
+	d.line = get_next_line(fd);
+	while (d.line)
 	{
-		split = ft_split(line, ' ');
+		split = ft_split(d.line, ' ');
 		if (!split)
 			error("Malloc error", NULL);
-		if (split[0] && !ft_isempty(split[0]))
+		d.name = split[0];
+		d.value = split[1];
+		if (d.name && !ft_isempty(d.name))
 		{
-			result = check_line(line, split[0], split[1], game);
+			result = check_line(&d, game);
 			if (result == 42)
-				is_map = 1;
-			if ((is_map && result != 42) || result == 1)
-				error("Error\ninvalid data in cub file", game);
+				d.map = 1;
+			if ((d.map && result != 42) || result == 1)
+				error("invalid data in cub file", game);
 		}
-		free(line);
+		free(d.line);
 		ft_free_split(split);
-		line = get_next_line(fd);
+		d.line = get_next_line(fd);
 	}
-	free(line);
+	free(d.line);
+	if (d.textures || d.colors || !d.map)
+		error("invalid data in cub file", game);
 }

@@ -6,7 +6,7 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 11:54:40 by samy              #+#    #+#             */
-/*   Updated: 2023/07/01 14:30:58 by samy             ###   ########.fr       */
+/*   Updated: 2023/07/03 13:49:36 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,11 @@
 # include <mlx.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <math.h>
 # include "../libft/libft.h"
 # include "game.h"
 # include "minimap.h"
-# include "math.h"
+# include "parsing.h"
 
 # define DESTROYNOTIFY 17
 # define KEYPRESS 2
@@ -72,18 +73,11 @@ typedef struct s_game
 	t_textures	textures;
 	int			floor_color;
 	int			ceiling_color;
+
 }				t_game;
 
 void			error(char *message, t_game *game);
-t_game			*parsing(int argc, char **argv);
-void			get_data(int fd, t_game *game);
-int				open_file(char *path);
-void			check_file(char *path, char *file_type, t_game *game);
-int				is_valid_map(t_game *game);
-void			create_map(t_game *game);
-int				is_start_pos(char c);
-int				is_accesible(char c);
-int				is_valid_elem(char c);
 void			get_texture(char *pos, char *xpm_path, t_game *game);
 void			set_pos(int x, int y, t_pos *pos);
+void			free_game(t_game *game);
 #endif

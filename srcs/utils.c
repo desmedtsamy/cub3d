@@ -6,16 +6,36 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 12:08:31 by samy              #+#    #+#             */
-/*   Updated: 2023/07/02 00:40:36 by samy             ###   ########.fr       */
+/*   Updated: 2023/07/03 12:45:25 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-static void	free_game(t_game *game)
+void	free_game(t_game *game)
 {
-	(void)game;
-	printf("Freeing game...\n");
+	int i;
+
+	i = -1;
+	if (game->map)
+	{
+		while (game->map[++i])
+			free(game->map[i]);
+		free(game->map);
+	}
+	if (game->mlx)
+	{
+		if (game->textures.no_texture)
+			mlx_destroy_image(game->mlx, game->textures.no_texture);
+		if (game->textures.so_texture)
+			mlx_destroy_image(game->mlx, game->textures.so_texture);
+		if (game->textures.we_texture)
+			mlx_destroy_image(game->mlx, game->textures.we_texture);
+		if (game->textures.ea_texture)
+			mlx_destroy_image(game->mlx, game->textures.ea_texture);
+		if (game->window)
+			mlx_destroy_window(game->mlx, game->window);
+	}
 }
 
 void	error(char *message, t_game *game)

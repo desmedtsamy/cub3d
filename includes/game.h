@@ -6,7 +6,7 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 21:55:23 by samy              #+#    #+#             */
-/*   Updated: 2023/07/02 00:37:50 by samy             ###   ########.fr       */
+/*   Updated: 2023/07/02 00:46:34 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,6 @@ typedef struct s_rect
 
 void	move(float pos_x, float pos_y, t_game *game);
 t_rect	*set_rect(t_pos *pos, t_pos *end_pos, t_rect *rect);
-t_game	*init_game(void);
+t_game	*init_game(t_game *game);
 void	minimap(t_game *game);
 #endif

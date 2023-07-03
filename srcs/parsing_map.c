@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_map.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hgeissle <hgeissle@student.s19.be>         +#+  +:+       +#+        */
+/*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:13:03 by samy              #+#    #+#             */
-/*   Updated: 2023/06/30 15:06:41 by hgeissle         ###   ########.fr       */
+/*   Updated: 2023/07/03 16:14:59 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,20 +56,26 @@ void	create_map(t_game *game)
 	game->map_list = NULL;
 }
 
-static int	is_valid_pos(int row, int col, char **map)
+static int	is_valid_pos(int row, int col, char **map, t_game *game)
 {
 	char	up;
 	char	down;
 	char	left;
 	char	right;
 
-	up = map[row - 1][col];
-	down = map[row + 1][col];
+	if (row - 1 >= 0)
+		up = map[row - 1][col];
+	else
+		up = 0;
+	if (row + 1 < game->map_height)
+		down = map[row + 1][col];
+	else
+		down = 0;
 	left = map[row][col - 1];
 	right = map[row][col + 1];
 	if (!up || (up != '1' && !is_accesible(up)))
 		return (0);
-	if (!down || (down != '1' && !is_accesible(down)))
+	if (map[row +1] || !down || (down != '1' && !is_accesible(down)))
 		return (0);
 	if (!left || (left != '1' && !is_accesible(left)))
 		return (0);
@@ -104,12 +110,12 @@ int	is_valid_map(t_game *game)
 	int	col;
 	int	start_pos;
 
-	row = 0;
+	row = -1;
 	start_pos = 0;
-	while (game->map[row])
+	while (game->map[++row])
 	{
-		col = 0;
-		while (game->map[row][col])
+		col = -1;
+		while (game->map[row][++col])
 		{
 			if (!is_valid_elem(game->map[row][col]))
 				error("Invalid element", game);
@@ -117,11 +123,11 @@ int	is_valid_map(t_game *game)
 				if (!set_start_pos(row, col, &start_pos, game))
 					error("multiple start position", game);
 			if (game->map[row][col] == '0' || is_start_pos(game->map[row][col]))
-				if (!is_valid_pos(row, col, game->map))
+				if (!is_valid_pos(row, col, game->map, game))
 					error("map wasn't surrounded by walls", game);
-			col++;
 		}
-		row++;
 	}
+	if(!start_pos)
+		error("No start position", game);
 	return (1);
 }

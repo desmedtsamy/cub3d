@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_data.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 12:06:35 by samy              #+#    #+#             */
-/*   Updated: 2023/07/03 14:09:06 by samy             ###   ########.fr       */
+/*   Updated: 2023/07/04 15:38:51 by sde-smed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static int	check_line(t_data *d, t_game *game)
 			error("cub file error", game);
 	}
 	else if ((ft_strcmp(d->name, "F") == 0 || ft_strcmp(d->name, "C") == 0)
-			&& d->colors-- > 0)
+		&& d->colors-- > 0)
 	{
 		if (d->textures == 4 || d->textures == 0)
 			get_color(d->name, d->value, game);
@@ -81,7 +81,10 @@ static int	check_line(t_data *d, t_game *game)
 			error("cub file error", game);
 	}
 	else if (!ft_strncmp(d->name, "1", 1))
+	{
+		d->map = 1;
 		return (get_map(d->line, game));
+	}
 	else
 		return (1);
 	return (0);
@@ -93,10 +96,7 @@ void	get_data(int fd, t_game *game)
 	int		result;
 	t_data	d;
 
-	d.textures = 4;
-	d.colors = 2;
-	d.map = 0;
-	d.line = get_next_line(fd);
+	init_data(fd, &d);
 	while (d.line)
 	{
 		split = ft_split(d.line, ' ');
@@ -107,8 +107,6 @@ void	get_data(int fd, t_game *game)
 		if (d.name && !ft_isempty(d.name))
 		{
 			result = check_line(&d, game);
-			if (result == 42)
-				d.map = 1;
 			if ((d.map && result != 42) || result == 1)
 				error("invalid data in cub file", game);
 		}

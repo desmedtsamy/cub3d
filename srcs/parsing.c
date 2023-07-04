@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 12:01:02 by samy              #+#    #+#             */
-/*   Updated: 2023/07/02 00:46:01 by samy             ###   ########.fr       */
+/*   Updated: 2023/07/04 15:32:23 by sde-smed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,7 @@ int	open_file(char *path)
 
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
-		error("Can't open file", NULL);
-	fd = open(path, O_RDONLY);
-	if (fd == -1)
-		error("Can't open file", NULL);
+		error("can't open file", NULL);
 	return (fd);
 }
 

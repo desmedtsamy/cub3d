@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 00:36:50 by samy              #+#    #+#             */
-/*   Updated: 2023/07/02 00:46:15 by samy             ###   ########.fr       */
+/*   Updated: 2023/07/04 15:37:11 by sde-smed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,15 @@ void	init_minimap(t_game *game)
 	mini->bg_color = 0x1e202a;
 	mini->wall_color = 0x2b2d3d;
 	mini->player_color = 0xff0000;
+}
+
+t_data	*init_data(int fd, t_data *d)
+{
+	d->textures = 4;
+	d->colors = 2;
+	d->map = 0;
+	d->line = get_next_line(fd);
+	return (d);
 }
 
 t_game	*init_game(t_game *game)

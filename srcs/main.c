@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 11:48:42 by samy              #+#    #+#             */
-/*   Updated: 2023/07/03 13:19:16 by samy             ###   ########.fr       */
+/*   Updated: 2023/07/04 16:08:10 by sde-smed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,36 +20,6 @@ int	quit(void *param)
 	free_game(game);
 	exit(0);
 	return (0);
-}
-
-void	print_binary_rgb(int rgb)
-{
-	int	i;
-
-	i = 0;
-	while (i < 24)
-	{
-		printf("%d", (rgb >> i) & 1);
-		i++;
-	}
-	printf("\n");
-}
-
-void	print_game(t_game *game)
-{
-	int	i;
-
-	i = 0;
-	printf("NO: %s\n", game->textures.no_texture_path);
-	printf("SO: %s\n", game->textures.so_texture_path);
-	printf("WE: %s\n", game->textures.we_texture_path);
-	printf("EA: %s\n", game->textures.ea_texture_path);
-	print_binary_rgb(game->ceiling_color);
-	print_binary_rgb(game->floor_color);
-	printf("Map width: %d\n", game->map_width);
-	printf("Map height: %d\n", game->map_height);
-	while (i < game->map_height)
-		printf("%s\n", game->map[i++]);
 }
 
 static int	update(void *param)
@@ -67,9 +37,7 @@ static int	update(void *param)
 		move((player_pos->x - SPEED), (player_pos->y), game);
 	if (game->move.right)
 		move((player_pos->x + SPEED), (player_pos->y), game);
-	//if (game->move.forward || game->move.backward || game->move.left
-	//	|| game->move.right)
-		minimap(game);
+	minimap(game);
 	return (0);
 }
 
@@ -116,7 +84,6 @@ int	main(int argc, char **argv)
 	t_game	game;
 
 	parsing(argc, argv, &game);
-	print_game(&game);
 	init_minimap(&game);
 	minimap(&game);
 	mlx_hook(game.window, KEYPRESS, (1L << 0), deal_keys, &game);

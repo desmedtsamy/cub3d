@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_map.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:13:03 by samy              #+#    #+#             */
-/*   Updated: 2023/07/03 16:14:59 by samy             ###   ########.fr       */
+/*   Updated: 2023/07/04 15:40:20 by sde-smed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,23 +63,21 @@ static int	is_valid_pos(int row, int col, char **map, t_game *game)
 	char	left;
 	char	right;
 
-	if (row - 1 >= 0)
-		up = map[row - 1][col];
-	else
-		up = 0;
-	if (row + 1 < game->map_height)
-		down = map[row + 1][col];
-	else
-		down = 0;
+	if (row - 1 < 0)
+		return (0);
+	up = map[row - 1][col];
+	if (row + 1 >= game->map_height)
+		return (0);
+	down = map[row + 1][col];
 	left = map[row][col - 1];
 	right = map[row][col + 1];
-	if (!up || (up != '1' && !is_accesible(up)))
+	if (!up || (up && (up != '1' && !is_accesible(up))))
 		return (0);
-	if (map[row +1] || !down || (down != '1' && !is_accesible(down)))
+	if (!down || (down && (down != '1' && !is_accesible(down))))
 		return (0);
-	if (!left || (left != '1' && !is_accesible(left)))
+	if (!left || (left && (left != '1' && !is_accesible(left))))
 		return (0);
-	if (!right || (right != '1' && !is_accesible(right)))
+	if (!right || (right && (right != '1' && !is_accesible(right))))
 		return (0);
 	return (1);
 }
@@ -127,7 +125,7 @@ int	is_valid_map(t_game *game)
 					error("map wasn't surrounded by walls", game);
 		}
 	}
-	if(!start_pos)
+	if (!start_pos)
 		error("No start position", game);
 	return (1);
 }

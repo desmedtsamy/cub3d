@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 11:54:40 by samy              #+#    #+#             */
-/*   Updated: 2023/07/02 00:41:13 by samy             ###   ########.fr       */
+/*   Updated: 2023/07/04 16:06:17 by sde-smed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,13 @@
 # define MINI_SQUARE_SIZE 10
 
 typedef struct s_game	t_game;
+
+typedef struct s_triangle
+{
+	t_pos		*p1;
+	t_pos		*p2;
+	t_pos		*p3;
+}				t_triangle;
 
 typedef struct s_minimap
 {

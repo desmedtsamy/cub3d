@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:51:23 by samy              #+#    #+#             */
-/*   Updated: 2023/07/03 13:27:22 by samy             ###   ########.fr       */
+/*   Updated: 2023/07/04 17:17:44 by sde-smed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,105 +78,113 @@ static void	print_pos(t_game *game)
 	free(pos_y);
 }
 
-// Rotation d'un point autour d'un point central
-void rotate_point(t_pos *point, const t_pos *center, float angle)
+void	rotate_point(t_pos *point, const t_pos *center, float angle)
 {
-    float s = sin(angle);
-    float c = cos(angle);
+	float	s;
+	float	c;
+	float	new_x;
+	float	new_y;
 
-    // Translater le point par rapport au centre
-    point->x -= center->x;
-    point->y -= center->y;
-
-    // Effectuer la rotation
-    float new_x = point->x * c - point->y * s;
-    float new_y = point->x * s + point->y * c;
-
-    // Re-translater le point vers sa position d'origine
-    point->x = new_x + center->x;
-    point->y = new_y + center->y;
+	s = sin(angle);
+	c = cos(angle);
+	point->x -= center->x;
+	point->y -= center->y;
+	new_x = point->x * c - point->y * s;
+	new_y = point->x * s + point->y * c;
+	point->x = new_x + center->x;
+	point->y = new_y + center->y;
 }
 
-// Vérifier si un point est à l'intérieur d'un triangle en utilisant la méthode du barycentre
-int point_in_triangle(const t_pos *point, const t_pos *p1, const t_pos *p2, const t_pos *p3)
+int	point_in_triangle(const t_pos *point, t_triangle *t)
 {
-    float alpha = ((p2->y - p3->y) * (point->x - p3->x) + (p3->x - p2->x) * (point->y - p3->y)) /
-                  ((p2->y - p3->y) * (p1->x - p3->x) + (p3->x - p2->x) * (p1->y - p3->y));
-    float beta = ((p3->y - p1->y) * (point->x - p3->x) + (p1->x - p3->x) * (point->y - p3->y)) /
-                 ((p2->y - p3->y) * (p1->x - p3->x) + (p3->x - p2->x) * (p1->y - p3->y));
-    float gamma = 1.0f - alpha - beta;
+	float	gamma;
+	float	alpha;
+	float	beta;
 
-    // Le point est à l'intérieur du triangle si tous les coefficients alpha, beta, gamma sont positifs
-    return alpha >= 0 && beta >= 0 && gamma >= 0;
-}
-// Dessiner un triangle plein à l'aide de trois points
-void fill_triangle(const t_pos *p1, const t_pos *p2, const t_pos *p3, int color, t_game *game)
-{
-    t_pos min_pos = {
-        fminf(p1->x, fminf(p2->x, p3->x)),
-        fminf(p1->y, fminf(p2->y, p3->y))
-    };
-    t_pos max_pos = {
-        fmaxf(p1->x, fmaxf(p2->x, p3->x)),
-        fmaxf(p1->y, fmaxf(p2->y, p3->y))
-    };
-
-    // Parcourir chaque pixel à l'intérieur du rectangle englobant le triangle
-    for (int y = min_pos.y; y <= max_pos.y; y++)
-    {
-        for (int x = min_pos.x; x <= max_pos.x; x++)
-        {
-            t_pos current_pos = {x, y};
-
-            // Vérifier si le pixel est à l'intérieur du triangle
-            if (point_in_triangle(&current_pos, p1, p2, p3))
-            {
-                // Dessiner le pixel
-                mlx_pixel_put(game->mlx, game->window, x, y, color);
-            }
-        }
-    }
+	alpha = ((t->p2->y - t->p3->y) * (point->x - t->p3->x) + (t->p3->x
+				- t->p2->x) * (point->y - t->p3->y)) / ((t->p2->y - t->p3->y)
+			* (t->p1->x - t->p3->x) + (t->p3->x - t->p2->x) * (t->p1->y
+				- t->p3->y));
+	beta = ((t->p3->y - t->p1->y) * (point->x - t->p3->x) + (t->p1->x
+				- t->p3->x) * (point->y - t->p3->y)) / ((t->p2->y - t->p3->y)
+			* (t->p1->x - t->p3->x) + (t->p3->x - t->p2->x) * (t->p1->y
+				- t->p3->y));
+	gamma = 1.0f - alpha - beta;
+	return (alpha >= 0 && beta >= 0 && gamma >= 0);
 }
 
-void draw_player(t_pos *pos, float angle, t_game *game)
+void	fill_triangle(t_triangle *t, int color, t_game *game)
 {
-    t_minimap *mini;
-	float	radian;
+	t_pos	current_pos;
+	t_pos	min_pos;
+	t_pos	max_pos;
+
+	min_pos.x = fminf(t->p1->x, fminf(t->p2->x, t->p3->x));
+	min_pos.y = fminf(t->p1->y, fminf(t->p2->y, t->p3->y));
+	max_pos.x = fmaxf(t->p1->x, fmaxf(t->p2->x, t->p3->x));
+	max_pos.y = fmaxf(t->p1->y, fmaxf(t->p2->y, t->p3->y));
+	current_pos.y = min_pos.y;
+	while (current_pos.y <= max_pos.y)
+	{
+		current_pos.x = min_pos.x;
+		while (current_pos.x <= max_pos.x)
+		{
+			set_pos(current_pos.x, current_pos.y, &current_pos);
+			if (point_in_triangle(&current_pos, t))
+				mlx_pixel_put(game->mlx, game->window, current_pos.x,
+					current_pos.y, color);
+			current_pos.x++;
+		}
+		current_pos.y++;
+	}
+}
+
+void	init_triangle(t_triangle *t, t_pos *p1, t_pos *p2, t_pos *p3)
+{
+	t->p1 = p1;
+	t->p2 = p2;
+	t->p3 = p3;
+}
+
+void	draw_player(t_pos *pos, float radian, t_game *game)
+{
+	t_minimap	*mini;
+	t_pos		p1;
+	t_pos		p2;
+	t_pos		p3;
+	t_triangle	t;
 
 	mini = &game->minimap;
-	radian = angle * M_PI / 180;
-    // Définir les coins du triangle
-    t_pos p1 = {pos->x, pos->y - 7};
-    t_pos p2 = {pos->x - 7, pos->y + 7};
-    t_pos p3 = {pos->x + 7, pos->y + 7};
-
-    // Rotation du triangle autour du point central (pos)
-    rotate_point(&p1, pos, radian);
-    rotate_point(&p2, pos, radian);
-    rotate_point(&p3, pos, radian);
-
-    // Dessiner le triangle plein
-    fill_triangle(pos, &p1, &p2, mini->player_color, game);
-    fill_triangle(pos, &p2, &p3, mini->player_color, game);
-    fill_triangle(pos, &p3, &p1, mini->player_color, game);
+	radian = radian * M_PI / 180;
+	set_pos(pos->x, pos->y - 7, &p1);
+	set_pos(pos->x - 7, pos->y + 7, &p2);
+	set_pos(pos->x + 7, pos->y + 7, &p3);
+	init_triangle(&t, &p1, &p2, &p3);
+	rotate_point(&p1, pos, radian);
+	rotate_point(&p2, pos, radian);
+	rotate_point(&p3, pos, radian);
+	fill_triangle(&t, mini->player_color, game);
+	fill_triangle(&t, mini->player_color, game);
+	fill_triangle(&t, mini->player_color, game);
 }
 
 void	draw_minimap(t_pos *start, t_pos *size, t_pos *pos_max, t_game *g)
 {
 	t_pos	pos;
 	t_pos	ofset;
+	t_rect	rect;
 	float	x;
 	float	y;
-	t_rect	rect;
 
 	x = g->player.pos.x - ((MINI_X / MINI_SQUARE_SIZE) / 2);
 	y = g->player.pos.y - ((MINI_Y / MINI_SQUARE_SIZE) / 2);
 	set_pos((g->player.pos.x - (int)g->player.pos.x) * MINI_SQUARE_SIZE,
-		(g->player.pos.y - (int)g->player.pos.y) * MINI_SQUARE_SIZE, &ofset);
+		(g->player.pos.y - (int)g->player.pos.y) * MINI_SQUARE_SIZE,
+		&ofset);
 	draw_rect(set_rect(start, size, &rect), pos_max, g->minimap.bg_color, g);
 	print_map(x, y, &ofset, g);
-	set_pos((MINI_X / 2) + MINI_START - MINI_SQUARE_SIZE / 2, (MINI_Y / 2) + MINI_START - MINI_SQUARE_SIZE / 2, &pos);
-	//draw_rect(set_rect(&pos, NULL, &rect), pos_max, g->minimap.player_color, g);
+	set_pos((MINI_X / 2) + MINI_START - MINI_SQUARE_SIZE / 2, (MINI_Y / 2)
+		+ MINI_START - MINI_SQUARE_SIZE / 2, &pos);
 	draw_player(&pos, g->player.orientation, g);
 	pos.x += MINI_START / 2;
 	pos.y += MINI_START / 2;

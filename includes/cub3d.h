@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 11:54:40 by samy              #+#    #+#             */
-/*   Updated: 2023/07/03 13:49:36 by samy             ###   ########.fr       */
+/*   Updated: 2023/07/04 15:36:35 by sde-smed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,5 @@ void			error(char *message, t_game *game);
 void			get_texture(char *pos, char *xpm_path, t_game *game);
 void			set_pos(int x, int y, t_pos *pos);
 void			free_game(t_game *game);
+t_data			*init_data(int fd, t_data *d);
 #endif

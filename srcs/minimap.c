@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:51:23 by samy              #+#    #+#             */
-/*   Updated: 2023/07/04 17:17:44 by sde-smed         ###   ########.fr       */
+/*   Updated: 2023/07/05 14:38:25 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,96 +76,6 @@ static void	print_pos(t_game *game)
 	mlx_string_put(game->mlx, game->window, pos.x, pos.y, 0xccccff, pos_y);
 	free(pos_x);
 	free(pos_y);
-}
-
-void	rotate_point(t_pos *point, const t_pos *center, float angle)
-{
-	float	s;
-	float	c;
-	float	new_x;
-	float	new_y;
-
-	s = sin(angle);
-	c = cos(angle);
-	point->x -= center->x;
-	point->y -= center->y;
-	new_x = point->x * c - point->y * s;
-	new_y = point->x * s + point->y * c;
-	point->x = new_x + center->x;
-	point->y = new_y + center->y;
-}
-
-int	point_in_triangle(const t_pos *point, t_triangle *t)
-{
-	float	gamma;
-	float	alpha;
-	float	beta;
-
-	alpha = ((t->p2->y - t->p3->y) * (point->x - t->p3->x) + (t->p3->x
-				- t->p2->x) * (point->y - t->p3->y)) / ((t->p2->y - t->p3->y)
-			* (t->p1->x - t->p3->x) + (t->p3->x - t->p2->x) * (t->p1->y
-				- t->p3->y));
-	beta = ((t->p3->y - t->p1->y) * (point->x - t->p3->x) + (t->p1->x
-				- t->p3->x) * (point->y - t->p3->y)) / ((t->p2->y - t->p3->y)
-			* (t->p1->x - t->p3->x) + (t->p3->x - t->p2->x) * (t->p1->y
-				- t->p3->y));
-	gamma = 1.0f - alpha - beta;
-	return (alpha >= 0 && beta >= 0 && gamma >= 0);
-}
-
-void	fill_triangle(t_triangle *t, int color, t_game *game)
-{
-	t_pos	current_pos;
-	t_pos	min_pos;
-	t_pos	max_pos;
-
-	min_pos.x = fminf(t->p1->x, fminf(t->p2->x, t->p3->x));
-	min_pos.y = fminf(t->p1->y, fminf(t->p2->y, t->p3->y));
-	max_pos.x = fmaxf(t->p1->x, fmaxf(t->p2->x, t->p3->x));
-	max_pos.y = fmaxf(t->p1->y, fmaxf(t->p2->y, t->p3->y));
-	current_pos.y = min_pos.y;
-	while (current_pos.y <= max_pos.y)
-	{
-		current_pos.x = min_pos.x;
-		while (current_pos.x <= max_pos.x)
-		{
-			set_pos(current_pos.x, current_pos.y, &current_pos);
-			if (point_in_triangle(&current_pos, t))
-				mlx_pixel_put(game->mlx, game->window, current_pos.x,
-					current_pos.y, color);
-			current_pos.x++;
-		}
-		current_pos.y++;
-	}
-}
-
-void	init_triangle(t_triangle *t, t_pos *p1, t_pos *p2, t_pos *p3)
-{
-	t->p1 = p1;
-	t->p2 = p2;
-	t->p3 = p3;
-}
-
-void	draw_player(t_pos *pos, float radian, t_game *game)
-{
-	t_minimap	*mini;
-	t_pos		p1;
-	t_pos		p2;
-	t_pos		p3;
-	t_triangle	t;
-
-	mini = &game->minimap;
-	radian = radian * M_PI / 180;
-	set_pos(pos->x, pos->y - 7, &p1);
-	set_pos(pos->x - 7, pos->y + 7, &p2);
-	set_pos(pos->x + 7, pos->y + 7, &p3);
-	init_triangle(&t, &p1, &p2, &p3);
-	rotate_point(&p1, pos, radian);
-	rotate_point(&p2, pos, radian);
-	rotate_point(&p3, pos, radian);
-	fill_triangle(&t, mini->player_color, game);
-	fill_triangle(&t, mini->player_color, game);
-	fill_triangle(&t, mini->player_color, game);
 }
 
 void	draw_minimap(t_pos *start, t_pos *size, t_pos *pos_max, t_game *g)

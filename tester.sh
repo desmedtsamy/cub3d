@@ -1,6 +1,6 @@
 #!/bin/bash
 
-for ((X=1; X<=19; X++))
+for ((X=1; X<=23; X++))
 do
     filename="bad${X}.cub"
     echo "Running cub3d with ${filename}"

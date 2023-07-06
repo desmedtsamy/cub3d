@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 00:36:50 by samy              #+#    #+#             */
-/*   Updated: 2023/07/04 15:37:11 by sde-smed         ###   ########.fr       */
+/*   Updated: 2023/07/05 15:05:54 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,11 @@ t_game	*init_game(t_game *game)
 	game->move.left = 0;
 	game->move.right = 0;
 	return (game);
+}
+
+void	init_triangle(t_triangle *t, t_pos *p1, t_pos *p2, t_pos *p3)
+{
+	t->p1 = p1;
+	t->p2 = p2;
+	t->p3 = p3;
 }

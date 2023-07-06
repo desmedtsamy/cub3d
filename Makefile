@@ -6,7 +6,7 @@
 #    By: samy <samy@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/30 11:51:56 by sde-smed          #+#    #+#              #
-#    Updated: 2023/07/02 00:38:40 by samy             ###   ########.fr        #
+#    Updated: 2023/07/05 20:31:21 by samy             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,9 @@ SRCS	= 	main.c\
 			get_texture.c\
 			minimap.c\
 			moves.c\
-			init.c
+			init.c\
+			minimap_player.c\
+			error.c
 
 LIBFT	= libft/
 

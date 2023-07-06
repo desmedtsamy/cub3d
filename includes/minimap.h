@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 11:54:40 by samy              #+#    #+#             */
-/*   Updated: 2023/07/04 16:06:17 by sde-smed         ###   ########.fr       */
+/*   Updated: 2023/07/05 15:06:11 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 # define MINI_X 200
 # define MINI_Y 200
 # define MINI_START 20
-# define MINI_SQUARE_SIZE 10
+# define MINI_SQUARE_SIZE 15
+# define PLAYER_SIZE 13
 
 typedef struct s_game	t_game;
 
@@ -37,5 +38,7 @@ typedef struct s_minimap
 
 void	draw_minimap(t_pos *start, t_pos *size, t_pos *pos_max, t_game *g);
 void	init_minimap(t_game *game);
+void	init_triangle(t_triangle *t, t_pos *p1, t_pos *p2, t_pos *p3);
 void	draw_rect(t_rect *r, t_pos *max_p, int color, t_game *g);
+void	draw_player(t_pos *pos, float angle, t_game *game);
 #endif

@@ -6,17 +6,12 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 13:44:16 by samy              #+#    #+#             */
-/*   Updated: 2023/07/03 13:49:21 by samy             ###   ########.fr       */
+/*   Updated: 2023/07/05 14:35:14 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSING_H
 # define PARSING_H
-
-# define MINI_X 200
-# define MINI_Y 200
-# define MINI_START 20
-# define MINI_SQUARE_SIZE 10
 
 typedef struct s_game	t_game;
 

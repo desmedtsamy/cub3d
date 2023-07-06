@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 11:48:42 by samy              #+#    #+#             */
-/*   Updated: 2023/07/04 16:08:10 by sde-smed         ###   ########.fr       */
+/*   Updated: 2023/07/05 20:37:03 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ static int	deal_keys(int key, void *param)
 	else if (key == RIGHT)
 		game->move.right = 1;
 	else if (key == LEFT_ARROW)
-		game->player.orientation -= 15;
+		game->player.orientation -= 0.4;
 	else if (key == RIGHT_ARROW)
-		game->player.orientation += 15;
+		game->player.orientation += 0.4;
 	return (0);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 11:48:42 by samy              #+#    #+#             */
-/*   Updated: 2023/07/06 17:10:20 by sde-smed         ###   ########.fr       */
+/*   Updated: 2023/07/06 23:19:45 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,24 +29,22 @@ int	quit(void *param)
 static int	update(void *param)
 {
 	t_game	*game;
-	t_pos	*player_pos;
 
 	game = (t_game *)param;
-	player_pos = &game->player.pos;
 	if (game->move.forward)
-		move(game, 1);
+		move_forward(game, 1);
 	if (game->move.backward)
-		move(game, -1);
+		move_forward(game, -1);
 	if (game->move.left)
-		rotate(game, -1);
+		move_sideways(game, 1);
 	if (game->move.right)
-		rotate(game, 1);
-	if (game->player.orientation)
-		rotate(game, -1);
-	if (game->player.orientation)
-		rotate(game, 1);
+		move_sideways(game, -1);
+	if (game->move.turn_left)
+		rotate_left(game);
+	if (game->move.turn_right)
+		rotate_right(game);
 	if (game->move.forward || game->move.backward || game->move.left
-		|| game->move.right)
+		|| game->move.right || game->move.turn_right || game->move.turn_left)
 	{
 		mlx_clear_window(game->mlx, game->window);
 		raycasting(game);
@@ -71,9 +69,9 @@ static int	deal_keys(int key, void *param)
 	else if (key == RIGHT)
 		game->move.right = 1;
 	else if (key == LEFT_ARROW)
-		game->move.left = 1;
+		game->move.turn_left = 1;
 	else if (key == RIGHT_ARROW)
-		game->move.right = 1;
+		game->move.turn_right = 1;
 	return (0);
 }
 
@@ -91,9 +89,9 @@ static int	deal_keys_release(int key, void *param)
 	else if (key == RIGHT)
 		game->move.right = 0;
 	else if (key == LEFT_ARROW)
-		game->move.left = 0;
+		game->move.turn_left = 0;
 	else if (key == RIGHT_ARROW)
-		game->move.right = 0;
+		game->move.turn_right = 0;
 	return (0);
 }
 

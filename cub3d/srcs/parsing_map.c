@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_map.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:13:03 by samy              #+#    #+#             */
-/*   Updated: 2023/07/06 17:05:55 by sde-smed         ###   ########.fr       */
+/*   Updated: 2023/07/06 22:53:53 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,84 +71,15 @@ static int	is_valid_pos(int row, int col, char **map, t_game *game)
 	down = map[row + 1][col];
 	left = map[row][col - 1];
 	right = map[row][col + 1];
-	if (!up || (up && (up != '1' && !is_accesible(up))))
+	if (!up || (up && (up != '1' && !is_accesible(row - 1, col, game))))
 		return (0);
-	if (!down || (down && (down != '1' && !is_accesible(down))))
+	if (!down || (down && (down != '1' && !is_accesible(row + 1, col, game))))
 		return (0);
-	if (!left || (left && (left != '1' && !is_accesible(left))))
+	if (!left || (left && (left != '1' && !is_accesible(row, col - 1, game))))
 		return (0);
-	if (!right || (right && (right != '1' && !is_accesible(right))))
+	if (!right || (right && (right != '1' && !is_accesible(row, col + 1,
+					game))))
 		return (0);
-	return (1);
-}
-
-
-static void	set_start_dir(int row, int col, t_game *game)
-{
-	if (game->map[row][col] == 'E')
-	{
-		game->player.dir.x = 1.0;
-		game->player.dir.y = 0.0;
-	}
-	if (game->map[row][col] == 'N')
-	{
-		game->player.dir.x = 0.0;
-		game->player.dir.y = -1.0;
-	}
-	if (game->map[row][col] == 'W')
-	{
-		game->player.dir.x = -1.0;
-		game->player.dir.y = 0.0;
-	}
-	if (game->map[row][col] == 'S')
-	{
-		game->player.dir.x = 0.0;
-		game->player.dir.y = 1.0;
-	}
-}
-
-static void	set_start_plane(int row, int col, t_game *game)
-{
-	double	plane_len;
-	double	fov_rad;
-	double	fov;
-
-	fov = (double)FOV;
-	fov_rad = (fov / 180) * M_PI;
-	plane_len = tan(fov_rad / 2);
-	if (game->map[row][col] == 'E')
-	{
-		game->player.plane.x = 0.0;
-		game->player.plane.y = -plane_len;
-	}
-	if (game->map[row][col] == 'N')
-	{
-		game->player.plane.x = plane_len;
-		game->player.plane.y = 0.0;
-	}
-	if (game->map[row][col] == 'W')
-	{
-		game->player.plane.x = 0.0;
-		game->player.plane.y = plane_len;
-	}
-	if (game->map[row][col] == 'S')
-	{
-		game->player.plane.x = -plane_len;
-		game->player.plane.y = 0.0;
-	}
-}
-
-static int	set_start_pos(int row, int col, int *start_pos, t_game *game)
-{
-	if (*start_pos)
-		return (0);
-	*start_pos = 1;
-	game->player.pos.x = col + 0.5;
-	game->player.pos.y = row + 0.5;
-	game->player.start_pos.x = col + 0.5;
-	game->player.start_pos.y = row + 0.5;
-	set_start_dir(row, col, game);
-	set_start_plane(row, col, game);
 	return (1);
 }
 
@@ -165,14 +96,14 @@ int	is_valid_map(t_game *game)
 		col = -1;
 		while (game->map[row][++col])
 		{
-			if (!is_valid_elem(game->map[row][col]))
-				error("Invalid element", game);
+			if (!is_valid_elem(row, col, game))
+				error("invalid element", game);
 			if (is_start_pos(game->map[row][col]))
 				if (!set_start_pos(row, col, &start_pos, game))
 					error("multiple start position", game);
 			if (game->map[row][col] == '0' || is_start_pos(game->map[row][col]))
 				if (!is_valid_pos(row, col, game->map, game))
-					error("map wasn't surrounded by walls", game);
+					error("error in map", game);
 		}
 	}
 	if (!start_pos)

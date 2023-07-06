@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 11:54:40 by samy              #+#    #+#             */
-/*   Updated: 2023/07/06 13:54:44 by sde-smed         ###   ########.fr       */
+/*   Updated: 2023/07/06 21:20:16 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # define MINI_X 200
 # define MINI_Y 200
 # define MINI_START 20
-# define MINI_SQUARE_SIZE 15
+# define MINI_SQUARE_SIZE 10
 # define PLAYER_SIZE 13
 # define FLOOR_COLOR 0x63656e
 # define BG_COLOR 0x1e202a

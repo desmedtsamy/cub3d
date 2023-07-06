@@ -6,23 +6,29 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 12:08:31 by samy              #+#    #+#             */
-/*   Updated: 2023/07/05 20:30:58 by samy             ###   ########.fr       */
+/*   Updated: 2023/07/06 22:53:24 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void	set_pos(int x, int y, t_pos *pos)
+static void	img_pixel_put(int x, int y, int color, t_img img)
 {
-	pos->x = x;
-	pos->y = y;
-}
+	char	*pixel_addr;
 
-t_rect	*set_rect(t_pos *pos, t_pos *end_pos, t_rect *rect)
-{
-	rect->pos = pos;
-	rect->end_pos = end_pos;
-	return (rect);
+	pixel_addr = img.addr + (y * img.sl) + (x * (img.bpp / 8));
+	if (img.endian == 0)
+	{
+		pixel_addr[0] = color & 0xFF;
+		pixel_addr[1] = (color >> 8) & 0xFF;
+		pixel_addr[2] = (color >> 16) & 0xFF;
+	}
+	else
+	{
+		pixel_addr[0] = (color >> 16) & 0xFF;
+		pixel_addr[1] = (color >> 8) & 0xFF;
+		pixel_addr[2] = color & 0xFF;
+	}
 }
 
 void	draw_rect(t_rect *r, t_pos *max_p, int color, t_game *g)
@@ -45,8 +51,7 @@ void	draw_rect(t_rect *r, t_pos *max_p, int color, t_game *g)
 		j = 0;
 		while (j < r->end_pos->x && r->pos->x + j < max.x)
 		{
-			mlx_pixel_put(g->mlx, g->window, r->pos->x + j, r->pos->y + i,
-				color);
+			img_pixel_put (r->pos->x + j, r->pos->y + i, color, g->img);
 			j++;
 		}
 		i++;

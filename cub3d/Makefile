@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+         #
+#    By: samy <samy@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/30 11:51:56 by sde-smed          #+#    #+#              #
-#    Updated: 2023/07/06 16:35:18 by sde-smed         ###   ########.fr        #
+#    Updated: 2023/07/06 22:54:22 by samy             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,9 +22,9 @@ SRCS	= 	main.c\
 			minimap.c\
 			moves.c\
 			init.c\
-			minimap_player.c\
 			error.c\
-			raycasting.c
+			raycasting.c\
+			set.c
 
 LIBFT	= libft/
 

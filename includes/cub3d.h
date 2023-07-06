@@ -6,7 +6,7 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 11:54:40 by samy              #+#    #+#             */
-/*   Updated: 2023/07/05 14:19:00 by samy             ###   ########.fr       */
+/*   Updated: 2023/07/06 11:00:09 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,5 @@ void			get_texture(char *pos, char *xpm_path, t_game *game);
 void			set_pos(int x, int y, t_pos *pos);
 void			free_game(t_game *game);
 t_data			*init_data(int fd, t_data *d);
-void			error_parsing(int fd, t_game *game);
+void			error_parsing(char * message, int fd, t_game *game);
 #endif

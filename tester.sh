@@ -1,6 +1,9 @@
 #!/bin/bash
 
-for ((X=1; X<=23; X++))
+
+echo "Running cub3d with prout"
+./cub3d assets/maps/prout
+for ((X=1; X<=24; X++))
 do
     filename="bad${X}.cub"
     echo "Running cub3d with ${filename}"

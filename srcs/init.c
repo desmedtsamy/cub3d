@@ -6,7 +6,7 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 00:36:50 by samy              #+#    #+#             */
-/*   Updated: 2023/07/05 15:05:54 by samy             ###   ########.fr       */
+/*   Updated: 2023/07/06 11:12:26 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ void	init_minimap(t_game *game)
 	t_minimap	*mini;
 
 	mini = &game->minimap;
-	mini->floor_color = 0x63656e;
-	mini->bg_color = 0x1e202a;
-	mini->wall_color = 0x2b2d3d;
-	mini->player_color = 0xff0000;
+	mini->floor_color = FLOOR_COLOR;
+	mini->bg_color = BG_COLOR;
+	mini->wall_color = WALL_COLOR;
+	mini->player_color = PLAYER_COLOR;
 }
 
 t_data	*init_data(int fd, t_data *d)

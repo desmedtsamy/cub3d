@@ -6,7 +6,7 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 20:30:32 by samy              #+#    #+#             */
-/*   Updated: 2023/07/05 20:36:22 by samy             ###   ########.fr       */
+/*   Updated: 2023/07/06 10:50:25 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ void	error(char *message, t_game *game)
 	exit(1);
 }
 
-void	error_parsing(int fd, t_game *game)
+void	error_parsing(char *message, int fd, t_game *game)
 {
 	if (fd)
 		close(fd);
-	error("invalid data in cub file", game);
+	error(message, game);
 }

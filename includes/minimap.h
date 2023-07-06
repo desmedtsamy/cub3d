@@ -6,7 +6,7 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 11:54:40 by samy              #+#    #+#             */
-/*   Updated: 2023/07/05 15:06:11 by samy             ###   ########.fr       */
+/*   Updated: 2023/07/06 11:11:41 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,10 @@
 # define MINI_START 20
 # define MINI_SQUARE_SIZE 15
 # define PLAYER_SIZE 13
+# define FLOOR_COLOR 0x63656e
+# define BG_COLOR 0x1e202a
+# define WALL_COLOR 0x2b2d3d
+# define PLAYER_COLOR 0xff0000
 
 typedef struct s_game	t_game;
 

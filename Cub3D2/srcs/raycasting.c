@@ -6,7 +6,7 @@
 /*   By: hgeissle <hgeissle@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 17:24:55 by hgeissle          #+#    #+#             */
-/*   Updated: 2023/07/06 14:16:28 by hgeissle         ###   ########.fr       */
+/*   Updated: 2023/07/06 15:49:08 by hgeissle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,25 +80,25 @@ static double	length_until_hit(double ray_dir_x, double ray_dir_y, t_game *game)
 	return (dist);
 }
 
-int	get_texture_column(t_game *game, double dist)
+int	get_texture_column(t_game *game, double dist, double ray_x, double ray_y)
 {
 	int			tex_x;
 	double		wall_x;
 
 	if (game->side == 0)
-		wall_x = game->player.pos.y + dist * game->player.dir.y;
+		wall_x = game->player.pos.y + dist * ray_y;
 	else
-		wall_x = game->player.pos.x + dist * game->player.dir.x;
+		wall_x = game->player.pos.x + dist * ray_x;
 	wall_x -= floor((wall_x));
 	tex_x = (int)(wall_x * (double)XPM_SIZE);
-	if (game->side == 0 && game->player.dir.x > 0)
+	if (game->side == 0 && ray_x > 0)
 		tex_x = XPM_SIZE - tex_x - 1;
-	if (game->side == 1 && game->player.dir.y < 0)
+	if (game->side == 1 && ray_y < 0)
 		tex_x = XPM_SIZE - tex_x - 1;
 	return (tex_x);
 }
 
-void	put_pixels_from_texture(t_game *game, t_img *img, t_img *tex, double dist, int tex_x, int x)
+void	put_pixels_from_texture(t_game *game, double dist, int tex_x, int x)
 {
 	double			step;
 	double			tex_pos;
@@ -121,11 +121,11 @@ void	put_pixels_from_texture(t_game *game, t_img *img, t_img *tex, double dist, 
 		// printf("x %d y %d\n", x, y);
 		tex_y = (int)tex_pos & (XPM_SIZE - 1);
 		tex_pos += step;
-		pixel_tex = tex->addr + (tex_y * tex->sl + tex_x * (img->bpp / 8));
+		pixel_tex = game->tex.addr + (tex_y * game->tex.sl + tex_x * (game->img.bpp / 8));
 		color = *(unsigned int *)(pixel_tex);
 	    if (game->side == 1)
 			color = (color >> 1) & 8355711;
-		pixel_img = img->addr + (y * img->sl + x * (img->bpp / 8));
+		pixel_img = game->img.addr + (y * game->img.sl + x * (game->img.bpp / 8));
 		*(unsigned int *)(pixel_img) = color;
 		y++;
 	}
@@ -146,6 +146,37 @@ void	*select_texture(t_game *game, double ray_dir_x, double ray_dir_y)
 	return (texture);
 }
 
+void	floor_and_ceiling(t_game *game)
+{
+	int		x;
+	int		y;
+	char	*pixel;
+
+	y = 0;
+	while (y < WIN_H / 2)
+	{
+		x = 0;
+		while (x < WIN_W)
+		{
+			pixel = game->img.addr + (y * game->img.sl + x * (game->img.bpp / 8));
+			*(unsigned int *)(pixel) = game->ceiling_color;
+			x++;
+		}
+		y++;
+	}
+	while (y < WIN_H)
+	{
+		x = 0;
+		while (x < WIN_W)
+		{
+			pixel = game->img.addr + (y * game->img.sl + x * (game->img.bpp / 8));
+			*(unsigned int *)(pixel) = game->floor_color;
+			x++;
+		}
+		y++;
+	}
+}
+
 int	raycasting(t_game *game)
 {
 	double	screen_pos;
@@ -155,27 +186,24 @@ int	raycasting(t_game *game)
 	double	dist;
 	double	w;
 	int			tex_x;
-	t_img	*img;
-	t_img	*tex;
 
 	x = 0;
 	w = (double)WIN_W;
-	img = malloc(sizeof(t_img));
-	tex = malloc(sizeof(t_img));
 	// printf("Value of img: %p\n", img);
 	// printf("Value of tex: %p\n", tex);
 	// printf("Values of WIN_W and WIN_H: %d, %d\n", WIN_W, WIN_H);
-	img->ptr = mlx_new_image(game->mlx, WIN_W, WIN_H);
-	img->addr = mlx_get_data_addr(img->ptr, &img->bpp, &img->sl, &img->endian);
+	game->img.ptr = mlx_new_image(game->mlx, WIN_W, WIN_H);
+	game->img.addr = mlx_get_data_addr(game->img.ptr, &game->img.bpp, &game->img.sl, &game->img.endian);
+	floor_and_ceiling(game);
 	while (x < WIN_W - 1)
 	{
 		screen_pos = 2 * (double)x / w - 1;
 		ray_dir_x = game->player.dir.x + screen_pos * game->player.plane.x;
 		ray_dir_y = game->player.dir.y + screen_pos * game->player.plane.y;
 		dist = length_until_hit(ray_dir_x, ray_dir_y, game);
-		tex_x = get_texture_column(game, dist);
-		tex->ptr = select_texture(game, ray_dir_x, ray_dir_y);
-		tex->addr = mlx_get_data_addr(tex->ptr, &tex->bpp, &tex->sl, &tex->endian);
+		tex_x = get_texture_column(game, dist, ray_dir_x, ray_dir_y);
+		game->tex.ptr = select_texture(game, ray_dir_x, ray_dir_y);
+		game->tex.addr = mlx_get_data_addr(game->tex.ptr, &game->tex.bpp, &game->tex.sl, &game->tex.endian);
 		// printf("Value of img: %p\n", img);
 		// printf("Value of tex: %p\n", tex);
 		// printf("Value of game: %p\n", game);
@@ -183,10 +211,10 @@ int	raycasting(t_game *game)
 		// printf("Value of x: %d\n", x);
 		// printf("Value of dist: %f\n", dist);
 		// printf("Value of fct: %p\n", &put_pixels_from_texture);
-		put_pixels_from_texture(game, img, tex, dist, tex_x, x);
+		put_pixels_from_texture(game, dist, tex_x, x);
 		x++;
 	}
-	mlx_put_image_to_window(game->mlx, game->window, img->ptr, 0, 0);
-	mlx_destroy_image(game->mlx, img->ptr);
+	mlx_put_image_to_window(game->mlx, game->window, game->img.ptr, 0, 0);
+	mlx_destroy_image(game->mlx, game->img.ptr);
 	return (0);
 }

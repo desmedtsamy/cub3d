@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hgeissle <hgeissle@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 11:54:40 by samy              #+#    #+#             */
-/*   Updated: 2023/07/06 16:33:01 by sde-smed         ###   ########.fr       */
+/*   Updated: 2023/07/06 17:38:28 by hgeissle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,15 @@ typedef struct s_textures
 	void		*ea_texture;
 }				t_textures;
 
+typedef struct s_line
+{
+	int			start;
+	int			height;
+	int			y;
+	char		*pixel_tex;
+	char		*pixel_img;
+}				t_line;
+
 typedef struct s_game
 {
 	t_minimap	minimap;
@@ -81,6 +90,7 @@ typedef struct s_game
 	int			side;
 	t_img		img;
 	t_img		tex;
+	t_line		line;
 }				t_game;
 
 void			error(char *message, t_game *game);

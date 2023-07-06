@@ -3,29 +3,46 @@
 /*                                                        :::      ::::::::   */
 /*   moves.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hgeissle <hgeissle@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:16:51 by samy              #+#    #+#             */
-/*   Updated: 2023/07/06 17:03:26 by sde-smed         ###   ########.fr       */
+/*   Updated: 2023/07/06 17:55:18 by hgeissle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
+void	slide(t_game *game, int new_x, int new_y, int up_or_down)
+{
+	int		curr_x;
+	int		curr_y;
+	double	speed;
+
+	curr_x = (int)game->player.pos.x;
+	curr_y = (int)game->player.pos.y;
+	speed = (double)SLIDE_SPEED;
+	if (is_accesible(game->map[new_y][curr_x]))
+		game->player.pos.y += (speed * up_or_down) * game->player.dir.y;
+	if (is_accesible(game->map[curr_y][new_x]))
+		game->player.pos.x += (speed * up_or_down) * game->player.dir.x;
+}
+
 void	move(t_game *game, int up_or_down)
 {
 	int		new_x;
 	int		new_y;
-	double	speed = 0.5;
+	double	speed;
 
-	
-		new_x = (int)(game->player.pos.x + (speed * up_or_down) * game->player.dir.x);
-		new_y = (int)(game->player.pos.y + (speed * up_or_down) * game->player.dir.y);
-		if (is_accesible(game->map[new_y][new_x]))
-		{
-			game->player.pos.y += (speed * up_or_down) * game->player.dir.y;
-			game->player.pos.x += (speed * up_or_down) * game->player.dir.x;
-		}
+	speed = (double)MOVE_SPEED;
+	new_x = (int)(game->player.pos.x + (speed * up_or_down) * game->player.dir.x);
+	new_y = (int)(game->player.pos.y + (speed * up_or_down) * game->player.dir.y);
+	if (is_accesible(game->map[new_y][new_x]))
+	{
+		game->player.pos.y += (speed * up_or_down) * game->player.dir.y;
+		game->player.pos.x += (speed * up_or_down) * game->player.dir.x;
+	}
+	else
+		slide(game, new_x, new_y, up_or_down);
 }
 
 void	rotate(t_game *game, int left_or_right)

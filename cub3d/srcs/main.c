@@ -6,7 +6,7 @@
 /*   By: hgeissle <hgeissle@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 11:48:42 by samy              #+#    #+#             */
-/*   Updated: 2023/07/07 11:30:03 by hgeissle         ###   ########.fr       */
+/*   Updated: 2023/07/07 12:40:46 by hgeissle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ static int	update(void *param)
 
 	game = (t_game *)param;
 	if (game->move.forward)
-		move_forward(game, 1);
-	if (game->move.backward)
 		move_forward(game, -1);
+	if (game->move.backward)
+		move_forward(game, 1);
 	if (game->move.left)
 		move_sideways(game, -1);
 	if (game->move.right)

@@ -6,7 +6,7 @@
 /*   By: hgeissle <hgeissle@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 22:53:14 by samy              #+#    #+#             */
-/*   Updated: 2023/07/07 10:50:08 by hgeissle         ###   ########.fr       */
+/*   Updated: 2023/07/07 12:39:09 by hgeissle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,11 @@ static void	set_start_plane(int row, int col, t_game *game)
 	fov_rad = (fov / 180) * M_PI;
 	plane_len = tan(fov_rad / 2);
 	if (game->map[row][col] == 'E')
-		set_pos(0.0, -plane_len, &game->player.plane);
+		set_pos(0.0, plane_len, &game->player.plane);
 	if (game->map[row][col] == 'N')
 		set_pos(plane_len, 0.0, &game->player.plane);
 	if (game->map[row][col] == 'W')
-		set_pos(0.0, plane_len, &game->player.plane);
+		set_pos(0.0, -plane_len, &game->player.plane);
 	if (game->map[row][col] == 'S')
 		set_pos(-plane_len, 0.0, &game->player.plane);
 }

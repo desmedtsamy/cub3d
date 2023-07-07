@@ -6,7 +6,7 @@
 /*   By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 12:06:35 by samy              #+#    #+#             */
-/*   Updated: 2023/07/07 11:45:38 by sde-smed         ###   ########.fr       */
+/*   Updated: 2023/07/07 11:57:33 by sde-smed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static void	get_color_value(int fd, int *color, char *str, t_game *game)
 	int		g;
 	int		b;
 
-	printf("str = %s\n", str);
 	if (ft_isempty(str) || str[ft_strlen(str) - 1] == ',')
 		error_parsing("bad elem in color", fd, game);
 	split = ft_split(str, ',');

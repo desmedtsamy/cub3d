@@ -6,7 +6,7 @@
 /*   By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 00:36:50 by samy              #+#    #+#             */
-/*   Updated: 2023/07/06 15:52:54 by sde-smed         ###   ########.fr       */
+/*   Updated: 2023/07/07 11:06:39 by sde-smed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ t_game	*init_game(t_game *game)
 	game->move.backward = 0;
 	game->move.left = 0;
 	game->move.right = 0;
+	game->move.turn_left = 0;
+	game->move.turn_right = 0;
 	return (game);
 }
 

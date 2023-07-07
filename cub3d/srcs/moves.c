@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   moves.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:16:51 by samy              #+#    #+#             */
-/*   Updated: 2023/07/06 23:23:58 by samy             ###   ########.fr       */
+/*   Updated: 2023/07/07 10:32:53 by sde-smed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,10 @@ void	move_sideways(t_game *game, int y)
 	int		new_y;
 
 	speed = (double)SIDE_SPEED;
-	if (y < 0)
-	{
-		new_x = (int)(game->player.pos.x - (speed * -y) * game->player.dir.y);
-		new_y = (int)(game->player.pos.y + (speed * -y) * game->player.dir.x);
-	}
-	else
-	{
+
 		new_x = (int)(game->player.pos.x + (speed * y) * game->player.dir.y);
 		new_y = (int)(game->player.pos.y - (speed * y) * game->player.dir.x);
-	}
+
 	if (is_accesible(new_y, new_x, game))
 	{
 		game->player.pos.x += (speed * y) * game->player.dir.y;

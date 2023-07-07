@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 22:53:14 by samy              #+#    #+#             */
-/*   Updated: 2023/07/06 23:10:44 by samy             ###   ########.fr       */
+/*   Updated: 2023/07/07 10:24:53 by sde-smed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ t_rect	*set_rect(t_pos *pos, t_pos *end_pos, t_rect *rect)
 static void	set_start_dir(int row, int col, t_game *game)
 {
 	if (game->map[row][col] == 'E')
-		set_pos(1.0, 0.0, &game->player.dir);
+		set_pos(-1.0, 0.0, &game->player.dir);
 	if (game->map[row][col] == 'N')
 		set_pos(0.0, -1.0, &game->player.dir);
 	if (game->map[row][col] == 'W')
 		set_pos(1.0, 0.0, &game->player.dir);
 	if (game->map[row][col] == 'S')
-		set_pos(0.0, -1.0, &game->player.dir);
+		set_pos(0.0, 1.0, &game->player.dir);
 }
 
 static void	set_start_plane(int row, int col, t_game *game)

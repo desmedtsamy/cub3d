@@ -6,7 +6,7 @@
 /*   By: hgeissle <hgeissle@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:16:51 by samy              #+#    #+#             */
-/*   Updated: 2023/07/07 13:03:30 by hgeissle         ###   ########.fr       */
+/*   Updated: 2023/07/07 13:25:59 by hgeissle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,12 @@ void	move_forward(t_game *game, int x)
 	int		new_y;
 
 	speed = (double)MOVE_SPEED;
-	new_x = (int)(game->player.pos.x + (speed * x) * game->player.dir.x);
-	new_y = (int)(game->player.pos.y + (speed * x) * game->player.dir.y);
+	new_x = (int)(game->player.pos.x - (speed * x) * game->player.dir.x);
+	new_y = (int)(game->player.pos.y - (speed * x) * game->player.dir.y);
 	if (is_accesible(new_y, new_x, game))
 	{
-		game->player.pos.x += (speed * x) * game->player.dir.x;
-		game->player.pos.y += (speed * x) * game->player.dir.y;
+		game->player.pos.x -= (speed * x) * game->player.dir.x;
+		game->player.pos.y -= (speed * x) * game->player.dir.y;
 	}
 	else
 		slide(game, new_x, new_y, x);
@@ -87,13 +87,13 @@ void	rotate_left(t_game *game)
 	old_dir_x = game->player.dir.x;
 	old_plane_x = game->player.plane.x;
 	speed = (double)CAMERA_SPEED;
-	game->player.dir.x = game->player.dir.x * cos(speed) - game->player.dir.y
-		* sin(speed);
-	game->player.dir.y = old_dir_x * sin(speed) + game->player.dir.y * cos(speed);
-	game->player.plane.x = game->player.plane.x * cos(speed)
-		- game->player.plane.y * sin(speed);
-	game->player.plane.y = old_plane_x * sin(speed) + game->player.plane.y
-		* cos(speed);
+	game->player.dir.x = game->player.dir.x * cos(-speed) - game->player.dir.y
+		* sin(-speed);
+	game->player.dir.y = old_dir_x * sin(-speed) + game->player.dir.y * cos(-speed);
+	game->player.plane.x = game->player.plane.x * cos(-speed)
+		- game->player.plane.y * sin(-speed);
+	game->player.plane.y = old_plane_x * sin(-speed) + game->player.plane.y
+		* cos(-speed);
 }
 
 void	rotate_right(t_game *game)
@@ -105,11 +105,11 @@ void	rotate_right(t_game *game)
 	old_dir_x = game->player.dir.x;
 	old_plane_x = game->player.plane.x;
 	speed = (double)CAMERA_SPEED;
-	game->player.dir.x = game->player.dir.x * cos(-speed) - game->player.dir.y
-		* sin(-speed);
-	game->player.dir.y = old_dir_x * sin(-speed) + game->player.dir.y * cos(-speed);
-	game->player.plane.x = game->player.plane.x * cos(-speed)
-		- game->player.plane.y * sin(-speed);
-	game->player.plane.y = old_plane_x * sin(-speed) + game->player.plane.y
-		* cos(-speed);
+	game->player.dir.x = game->player.dir.x * cos(speed) - game->player.dir.y
+		* sin(speed);
+	game->player.dir.y = old_dir_x * sin(speed) + game->player.dir.y * cos(speed);
+	game->player.plane.x = game->player.plane.x * cos(speed)
+		- game->player.plane.y * sin(speed);
+	game->player.plane.y = old_plane_x * sin(speed) + game->player.plane.y
+		* cos(speed);
 }

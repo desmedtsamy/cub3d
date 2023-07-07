@@ -6,7 +6,7 @@
 /*   By: hgeissle <hgeissle@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 17:24:55 by hgeissle          #+#    #+#             */
-/*   Updated: 2023/07/07 11:59:39 by hgeissle         ###   ########.fr       */
+/*   Updated: 2023/07/07 16:58:39 by hgeissle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,9 @@ int	get_texture_column(t_game *game, double dist, double ray_x, double ray_y)
 		wall_x = game->player.pos.x + dist * ray_x;
 	wall_x -= floor((wall_x));
 	tex_x = (int)(wall_x * (double)XPM_SIZE);
-	if (game->side == 0 && ray_x > 0)
+	if (game->side == 0 && ray_x < 0)
 		tex_x = XPM_SIZE - tex_x - 1;
-	if (game->side == 1 && ray_y < 0)
+	if (game->side == 1 && ray_y > 0)
 		tex_x = XPM_SIZE - tex_x - 1;
 	return (tex_x);
 }

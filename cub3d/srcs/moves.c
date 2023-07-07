@@ -6,7 +6,7 @@
 /*   By: hgeissle <hgeissle@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:16:51 by samy              #+#    #+#             */
-/*   Updated: 2023/07/07 11:11:48 by hgeissle         ###   ########.fr       */
+/*   Updated: 2023/07/07 12:01:05 by hgeissle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,21 @@ void	slide(t_game *game, int new_x, int new_y, int up_or_down)
 		game->player.pos.y += (speed * up_or_down) * game->player.dir.y;
 	else if (is_accesible(curr_y, new_x, game))
 		game->player.pos.x += (speed * up_or_down) * game->player.dir.x;
+}
+
+void	side_slide(t_game *game, int new_x, int new_y, int x)
+{
+	int		curr_x;
+	int		curr_y;
+	double	speed;
+
+	curr_x = (int)game->player.pos.x;
+	curr_y = (int)game->player.pos.y;
+	speed = (double)SLIDE_SPEED;
+	if (is_accesible(new_y, curr_x, game))
+		game->player.pos.y -= (speed * x) * game->player.dir.x;
+	else if (is_accesible(curr_y, new_x, game))
+		game->player.pos.x += (speed * x) * game->player.dir.y;
 }
 
 void	move_forward(t_game *game, int x)
@@ -53,14 +68,14 @@ void	move_sideways(t_game *game, int y)
 
 	speed = (double)SIDE_SPEED;
 	new_x = (int)(game->player.pos.x + (speed * y) * game->player.dir.y);
-	new_y = (int)(game->player.pos.y + (speed * y) * game->player.dir.x);
+	new_y = (int)(game->player.pos.y - (speed * y) * game->player.dir.x);
 	if (is_accesible(new_y, new_x, game))
 	{
 		game->player.pos.x += (speed * y) * game->player.dir.y;
-		game->player.pos.y += (speed * y) * game->player.dir.x;
+		game->player.pos.y -= (speed * y) * game->player.dir.x;
 	}
 	else
-		slide(game, new_x, new_y, y);
+		side_slide(game, new_x, new_y, y);
 }
 
 void	rotate_left(t_game *game)

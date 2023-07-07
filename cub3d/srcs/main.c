@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hgeissle <hgeissle@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 11:48:42 by samy              #+#    #+#             */
-/*   Updated: 2023/07/06 23:19:45 by samy             ###   ########.fr       */
+/*   Updated: 2023/07/07 11:30:03 by hgeissle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ static int	update(void *param)
 	if (game->move.backward)
 		move_forward(game, -1);
 	if (game->move.left)
-		move_sideways(game, 1);
-	if (game->move.right)
 		move_sideways(game, -1);
+	if (game->move.right)
+		move_sideways(game, 1);
 	if (game->move.turn_left)
 		rotate_left(game);
 	if (game->move.turn_right)

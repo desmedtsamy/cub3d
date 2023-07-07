@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 21:55:23 by samy              #+#    #+#             */
-/*   Updated: 2023/07/06 23:23:27 by samy             ###   ########.fr       */
+/*   Updated: 2023/07/07 10:58:09 by sde-smed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # define FOV 70
 # define MOVE_SPEED 0.08
 # define SIDE_SPEED 0.05
-# define CAMERA_SPEED 1000
+# define CAMERA_SPEED 0.1
 # define SLIDE_SPEED 0.05
 
 typedef struct s_game	t_game;

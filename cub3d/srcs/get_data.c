@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_data.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 12:06:35 by samy              #+#    #+#             */
-/*   Updated: 2023/07/06 11:08:31 by samy             ###   ########.fr       */
+/*   Updated: 2023/07/07 11:45:38 by sde-smed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@ static void	get_color_value(int fd, int *color, char *str, t_game *game)
 	int		g;
 	int		b;
 
+	printf("str = %s\n", str);
+	if (ft_isempty(str) || str[ft_strlen(str) - 1] == ',')
+		error_parsing("bad elem in color", fd, game);
 	split = ft_split(str, ',');
 	if (!split)
 		error("Malloc error", game);
@@ -90,20 +93,30 @@ static int	check_line(int fd, t_data *d, t_game *game)
 	return (0);
 }
 
+static void split_data(t_data *d)
+{
+	char **split;
+	
+	split = ft_split(d->line, ' ');
+		if (!split)
+			error("Malloc error", NULL);
+		d->name = split[0];
+		d->value = split[1];
+		d->nb_elem = ft_nb_split(split);
+		d->split = split;
+}
+
 void	get_data(int fd, t_game *game)
 {
-	char	**split;
 	int		result;
 	t_data	d;
 
 	init_data(fd, &d);
 	while (d.line)
 	{
-		split = ft_split(d.line, ' ');
-		if (!split)
-			error("Malloc error", NULL);
-		d.name = split[0];
-		d.value = split[1];
+		split_data(&d);
+		if (d.nb_elem > 2 && ft_strncmp(d.name, "1", 1))
+			error_parsing("bad data inside cub file", fd, game);
 		if (d.name && !ft_isempty(d.name))
 		{
 			result = check_line(fd, &d, game);
@@ -111,7 +124,7 @@ void	get_data(int fd, t_game *game)
 				error_parsing("bad data inside map", fd, game);
 		}
 		free(d.line);
-		ft_free_split(split);
+		ft_free_split(d.split);
 		d.line = get_next_line(fd);
 	}
 	free(d.line);

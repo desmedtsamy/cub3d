@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 13:44:16 by samy              #+#    #+#             */
-/*   Updated: 2023/07/06 23:10:51 by samy             ###   ########.fr       */
+/*   Updated: 2023/07/07 11:34:09 by sde-smed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ typedef struct s_data
 	char		*line;
 	char		*name;
 	char		*value;
+	char		**split;
+	int			nb_elem;
 	int			textures;
 	int			colors;
 	int			map;

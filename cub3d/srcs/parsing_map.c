@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_map.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:13:03 by samy              #+#    #+#             */
-/*   Updated: 2023/07/06 22:53:53 by samy             ###   ########.fr       */
+/*   Updated: 2023/07/07 11:37:15 by sde-smed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int	is_valid_map(t_game *game)
 					error("multiple start position", game);
 			if (game->map[row][col] == '0' || is_start_pos(game->map[row][col]))
 				if (!is_valid_pos(row, col, game->map, game))
-					error("error in map", game);
+					error("bad map", game);
 		}
 	}
 	if (!start_pos)

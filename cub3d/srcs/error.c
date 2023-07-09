@@ -6,7 +6,7 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 20:30:32 by samy              #+#    #+#             */
-/*   Updated: 2023/07/06 10:50:25 by samy             ###   ########.fr       */
+/*   Updated: 2023/07/09 23:40:20 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ void	free_game(t_game *game)
 
 void	error(char *message, t_game *game)
 {
-	write(2, "Error\n", 6);
 	if (message)
 	{
+		write(2, "Error\n", 6);
 		write(2, message, ft_strlen(message));
 		write(2, "\n", 1);
 	}
@@ -55,5 +55,10 @@ void	error_parsing(char *message, int fd, t_game *game)
 {
 	if (fd)
 		close(fd);
+	if (game->map_list)
+	{
+		ft_lstclear(&game->map_list, free);
+		game->map_list = NULL;
+	}
 	error(message, game);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hgeissle <hgeissle@student.s19.be>         +#+  +:+       +#+        */
+/*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 21:55:23 by samy              #+#    #+#             */
-/*   Updated: 2023/07/09 17:43:52 by hgeissle         ###   ########.fr       */
+/*   Updated: 2023/07/09 23:51:34 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,5 @@ void			ft_mlx_pixel_put(t_game *game, int x, int y, unsigned int col);
 double			length_until_hit(t_game *game);
 int				get_texture_column(t_game *game, double dist);
 void			*select_texture(t_game *game);
-
+int				is_dir(char *str);
 #endif

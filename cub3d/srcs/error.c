@@ -6,7 +6,7 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 20:30:32 by samy              #+#    #+#             */
-/*   Updated: 2023/07/09 23:40:20 by samy             ###   ########.fr       */
+/*   Updated: 2023/07/10 00:34:39 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,10 @@ void	error(char *message, t_game *game)
 	exit(1);
 }
 
-void	error_parsing(char *message, int fd, t_game *game)
+void	error_parsing(char *message, t_game *game)
 {
-	if (fd)
-		close(fd);
+	if (game->fd)
+		close(game->fd);
 	if (game->map_list)
 	{
 		ft_lstclear(&game->map_list, free);

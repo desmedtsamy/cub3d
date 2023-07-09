@@ -6,24 +6,16 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 11:48:42 by samy              #+#    #+#             */
-/*   Updated: 2023/07/09 23:42:12 by samy             ###   ########.fr       */
+/*   Updated: 2023/07/10 00:56:19 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int	quit(void *param)
+static int	quit(void *param)
 {
-	t_game	*game;
-
-	game = (t_game *)param;
-	mlx_destroy_image(game->mlx, game->textures.no_texture);
-	mlx_destroy_image(game->mlx, game->textures.so_texture);
-	mlx_destroy_image(game->mlx, game->textures.we_texture);
-	mlx_destroy_image(game->mlx, game->textures.ea_texture);
-	mlx_destroy_window(game->mlx, game->window);
+	free_game((t_game *)param);
 	exit(0);
-	return (0);
 }
 
 static int	update(void *param)

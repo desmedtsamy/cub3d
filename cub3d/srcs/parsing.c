@@ -6,7 +6,7 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 12:01:02 by samy              #+#    #+#             */
-/*   Updated: 2023/07/05 14:25:00 by samy             ###   ########.fr       */
+/*   Updated: 2023/07/10 00:59:06 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	check_file(char *path, char *file_type, t_game *game)
 	}
 }
 
-int	open_file(char *path)
+static int	open_file(char *path)
 {
 	int	fd;
 
@@ -37,15 +37,13 @@ int	open_file(char *path)
 
 t_game	*parsing(int argc, char **argv, t_game *game)
 {
-	int	fd;
-
 	if (argc != 2)
 		error("Wrong number of arguments", NULL);
 	init_game(game);
 	check_file(argv[1], ".cub", game);
-	fd = open_file(argv[1]);
-	get_data(fd, game);
-	close(fd);
+	game->fd = open_file(argv[1]);
+	get_data(game);
+	close(game->fd);
 	create_map(game);
 	is_valid_map(game);
 	return (game);

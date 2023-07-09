@@ -6,7 +6,7 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 14:55:00 by samy              #+#    #+#             */
-/*   Updated: 2023/07/06 22:50:59 by samy             ###   ########.fr       */
+/*   Updated: 2023/07/10 01:00:31 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,15 @@ int	is_valid_elem(int y, int x, t_game *game)
 		return (0);
 	c = game->map[y][x];
 	if (c == '1' || c == ' ' || is_accesible(y, x, game))
+		return (1);
+	return (0);
+}
+
+int	is_dir(char *str)
+{
+	if (ft_strcmp(str, "NO") == 0 || ft_strcmp(str, "SO") == 0)
+		return (1);
+	if (ft_strcmp(str, "WE") == 0 || ft_strcmp(str, "EA") == 0)
 		return (1);
 	return (0);
 }

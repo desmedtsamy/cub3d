@@ -6,7 +6,7 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 11:54:40 by samy              #+#    #+#             */
-/*   Updated: 2023/07/06 21:20:16 by samy             ###   ########.fr       */
+/*   Updated: 2023/07/10 01:00:51 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@
 # define MINI_START 20
 # define MINI_SQUARE_SIZE 10
 # define PLAYER_SIZE 13
-# define FLOOR_COLOR 0x63656e
-# define BG_COLOR 0x1e202a
 # define WALL_COLOR 0x2b2d3d
 # define PLAYER_COLOR 0xff0000
 
@@ -40,7 +38,6 @@ typedef struct s_minimap
 	int			player_color;
 }				t_minimap;
 
-void	draw_minimap(t_pos *start, t_pos *size, t_pos *pos_max, t_game *g);
 void	init_minimap(t_game *game);
 void	init_triangle(t_triangle *t, t_pos *p1, t_pos *p2, t_pos *p3);
 void	draw_rect(t_rect *r, t_pos *max_p, int color, t_game *g);

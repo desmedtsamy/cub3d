@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 13:44:16 by samy              #+#    #+#             */
-/*   Updated: 2023/07/07 11:34:09 by sde-smed         ###   ########.fr       */
+/*   Updated: 2023/07/10 00:59:10 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ typedef struct s_data
 }				t_data;
 
 t_game			*parsing(int argc, char **argv, t_game *game);
-void			get_data(int fd, t_game *game);
-int				open_file(char *path);
+void			get_data(t_game *game);
 void			check_file(char *path, char *file_type, t_game *game);
 int				is_valid_map(t_game *game);
 void			create_map(t_game *game);

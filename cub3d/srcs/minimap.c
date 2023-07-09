@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hgeissle <hgeissle@student.s19.be>         +#+  +:+       +#+        */
+/*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:51:23 by samy              #+#    #+#             */
-/*   Updated: 2023/07/09 17:10:09 by hgeissle         ###   ########.fr       */
+/*   Updated: 2023/07/10 00:57:17 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void	print_cell(t_pos *pos, t_pos *test, t_pos *elem, t_game *game)
+static void	print_cell(t_pos *pos, t_pos *test, t_pos *elem, t_game *game)
 {
 	t_rect		rect;
 	t_minimap	*mini;
@@ -27,7 +27,7 @@ void	print_cell(t_pos *pos, t_pos *test, t_pos *elem, t_game *game)
 		draw_rect(&rect, &pos_max, mini->floor_color, game);
 }
 
-void	print_map(float x, float y, t_pos *ofset, t_game *g)
+static void	print_map(float x, float y, t_pos *ofset, t_game *g)
 {
 	t_pos	pos;
 	t_pos	size;
@@ -56,7 +56,7 @@ void	print_map(float x, float y, t_pos *ofset, t_game *g)
 	}
 }
 
-void	draw_minimap(t_pos *start, t_pos *size, t_pos *pos_max, t_game *g)
+static void	draw_minimap(t_pos *start, t_pos *size, t_pos *pos_max, t_game *g)
 {
 	t_pos	pos;
 	t_pos	ofset;

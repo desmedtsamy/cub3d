@@ -6,7 +6,7 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:13:03 by samy              #+#    #+#             */
-/*   Updated: 2023/07/09 23:40:46 by samy             ###   ########.fr       */
+/*   Updated: 2023/07/10 01:02:45 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	create_map(t_game *game)
 	game->map_list = NULL;
 }
 
-static int	is_valid_pos(int row, int col, char **map, t_game *game)
+static int	is_valid_pos(int row, int col, char **map, t_game *g)
 {
 	char	up;
 	char	down;
@@ -66,19 +66,18 @@ static int	is_valid_pos(int row, int col, char **map, t_game *game)
 	if (row - 1 < 0)
 		return (0);
 	up = map[row - 1][col];
-	if (row + 1 >= game->map_height)
+	if (row + 1 >= g->map_height)
 		return (0);
 	down = map[row + 1][col];
 	left = map[row][col - 1];
 	right = map[row][col + 1];
-	if (!up || (up && (up != '1' && !is_accesible(row - 1, col, game))))
+	if (!up || (up && (up != '1' && !is_accesible(row - 1, col, g))))
 		return (0);
-	if (!down || (down && (down != '1' && !is_accesible(row + 1, col, game))))
+	if (!down || (down && (down != '1' && !is_accesible(row + 1, col, g))))
 		return (0);
-	if (!left || (left && (left != '1' && !is_accesible(row, col - 1, game))))
+	if (!left || (left && (left != '1' && !is_accesible(row, col - 1, g))))
 		return (0);
-	if (!right || (right && (right != '1' && !is_accesible(row, col + 1,
-					game))))
+	if (!right || (right && (right != '1' && !is_accesible(row, col + 1, g))))
 		return (0);
 	return (1);
 }

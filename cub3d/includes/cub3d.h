@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hgeissle <hgeissle@student.s19.be>         +#+  +:+       +#+        */
+/*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 11:54:40 by samy              #+#    #+#             */
-/*   Updated: 2023/07/09 17:41:02 by hgeissle         ###   ########.fr       */
+/*   Updated: 2023/07/10 00:40:43 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ typedef struct s_game
 	int			floor_color;
 	int			ceiling_color;
 	int			side;
+	int			fd;
 	t_img		img;
 	t_img		tex;
 	t_line		line;
@@ -95,9 +96,9 @@ typedef struct s_game
 
 void			error(char *message, t_game *game);
 void			get_texture(char *pos, char *xpm_path, t_game *game);
-void			get_color_value(int fd, int *color, char *str, t_game *game);
+void			get_color_value(int *color, char *str, t_game *game);
 t_pos			*set_pos(double x, double y, t_pos *pos);
 void			free_game(t_game *game);
 t_data			*init_data(int fd, t_data *d);
-void			error_parsing(char *message, int fd, t_game *game);
+void			error_parsing(char *message, t_game *game);
 #endif

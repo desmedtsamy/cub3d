@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hgeissle <hgeissle@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:51:23 by samy              #+#    #+#             */
-/*   Updated: 2023/07/06 22:50:05 by samy             ###   ########.fr       */
+/*   Updated: 2023/07/09 17:10:09 by hgeissle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,10 @@ void	draw_minimap(t_pos *start, t_pos *size, t_pos *pos_max, t_game *g)
 	float	x;
 	float	y;
 
-	x = g->player.pos.x - ((MINI_X / MINI_SQUARE_SIZE) / 2);
-	y = g->player.pos.y - ((MINI_Y / MINI_SQUARE_SIZE) / 2);
-	set_pos((g->player.pos.x - (int)g->player.pos.x) * MINI_SQUARE_SIZE,
-		(g->player.pos.y - (int)g->player.pos.y) * MINI_SQUARE_SIZE,
+	x = g->p.pos.x - ((MINI_X / MINI_SQUARE_SIZE) / 2);
+	y = g->p.pos.y - ((MINI_Y / MINI_SQUARE_SIZE) / 2);
+	set_pos((g->p.pos.x - (int)g->p.pos.x) * MINI_SQUARE_SIZE,
+		(g->p.pos.y - (int)g->p.pos.y) * MINI_SQUARE_SIZE,
 		&ofset);
 	draw_rect(set_rect(start, size, &rect), pos_max, g->minimap.bg_color, g);
 	print_map(x, y, &ofset, g);

@@ -3,14 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hgeissle <hgeissle@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 12:08:31 by samy              #+#    #+#             */
-/*   Updated: 2023/07/06 22:53:24 by samy             ###   ########.fr       */
+/*   Updated: 2023/07/09 17:14:16 by hgeissle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+void	get_color_value(int fd, int *color, char *str, t_game *game)
+{
+	char	**split;
+	int		r;
+	int		g;
+	int		b;
+
+	if (ft_isempty(str) || str[ft_strlen(str) - 1] == ',')
+		error_parsing("bad elem in color", fd, game);
+	split = ft_split(str, ',');
+	if (!split)
+		error("Malloc error", game);
+	if (ft_nb_split(split) != 3)
+		error_parsing("bad elem in color", fd, game);
+	if (ft_strlen(split[0]) > 3 || ft_strlen(split[1]) > 3
+		|| ft_strlen(split[2]) > 3)
+		error_parsing("bad elem in color", fd, game);
+	r = ft_atoi(split[0]);
+	g = ft_atoi(split[1]);
+	b = ft_atoi(split[2]);
+	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
+		error_parsing("bad elem in color", fd, game);
+	ft_free_split(split);
+	*color = (r << 16 | g << 8 | b);
+}
 
 static void	img_pixel_put(int x, int y, int color, t_img img)
 {

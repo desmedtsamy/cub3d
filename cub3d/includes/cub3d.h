@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hgeissle <hgeissle@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 11:54:40 by samy              #+#    #+#             */
-/*   Updated: 2023/07/06 22:43:34 by samy             ###   ########.fr       */
+/*   Updated: 2023/07/09 17:41:02 by hgeissle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,11 @@ typedef struct s_player
 	t_pos		start_pos;
 	t_pos		dir;
 	t_pos		plane;
-	t_pos		step;
+	t_pos		ray;
 	t_pos		delta;
 	t_pos		side;
+	t_posint	step;
+	t_posint	map;
 }				t_player;
 
 typedef struct s_textures
@@ -74,7 +76,7 @@ typedef struct s_line
 typedef struct s_game
 {
 	t_minimap	minimap;
-	t_player	player;
+	t_player	p;
 	t_move		move;
 	char		**map;
 	t_list		*map_list;
@@ -93,6 +95,7 @@ typedef struct s_game
 
 void			error(char *message, t_game *game);
 void			get_texture(char *pos, char *xpm_path, t_game *game);
+void			get_color_value(int fd, int *color, char *str, t_game *game);
 t_pos			*set_pos(double x, double y, t_pos *pos);
 void			free_game(t_game *game);
 t_data			*init_data(int fd, t_data *d);

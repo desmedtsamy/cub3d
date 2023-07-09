@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: samy <samy@student.42.fr>                  +#+  +:+       +#+         #
+#    By: hgeissle <hgeissle@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/30 11:51:56 by sde-smed          #+#    #+#              #
-#    Updated: 2023/07/06 22:54:22 by samy             ###   ########.fr        #
+#    Updated: 2023/07/09 17:31:44 by hgeissle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,11 @@ SRCS	= 	main.c\
 			init.c\
 			error.c\
 			raycasting.c\
-			set.c
+			set.c\
+			pixel_put.c\
+			rotations.c\
+			ray_length.c\
+			use_textures.c\
 
 LIBFT	= libft/
 
@@ -33,7 +37,7 @@ OBJS_DIR = objs
 OBJS = $(addprefix ${OBJS_DIR}/, ${SRCS:%.c=%.o})
 OBJ = $(SRCS:.c=.o)
 
-FLAGS = -Wall -Wextra -Werror -O3 -fsanitize=address -g
+FLAGS = -Wall -Wextra -Werror -O3
 RM		= rm -rf
 
         # Colors #

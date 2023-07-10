@@ -6,7 +6,7 @@
 /*   By: hgeissle <hgeissle@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 17:24:55 by hgeissle          #+#    #+#             */
-/*   Updated: 2023/07/09 18:11:04 by hgeissle         ###   ########.fr       */
+/*   Updated: 2023/07/10 15:17:25 by hgeissle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,17 @@ static void	put_pixels_from_texture(t_game *game, double dist, int tex_x, int x)
 	}
 }
 
+static void	create_image(t_game *game)
+{
+	game->img.ptr = mlx_new_image(game->mlx, WIN_W, WIN_H);
+	if (!game->img.ptr)
+		error("image creation error", game);
+	game->img.addr = mlx_get_data_addr(game->img.ptr, &game->img.bpp,
+			&game->img.sl, &game->img.endian);
+	if (!game->img.addr)
+		error("image creation error", game);
+}
+
 int	raycasting(t_game *game)
 {
 	double	win_x;
@@ -63,9 +74,7 @@ int	raycasting(t_game *game)
 	int		tex_x;
 
 	x = 0;
-	game->img.ptr = mlx_new_image(game->mlx, WIN_W, WIN_H);
-	game->img.addr = mlx_get_data_addr(game->img.ptr, &game->img.bpp,
-			&game->img.sl, &game->img.endian);
+	create_image(game);
 	while (x < WIN_W - 1)
 	{
 		win_x = 2 * (double)x / (double)WIN_W - 1;

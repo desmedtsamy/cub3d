@@ -6,7 +6,7 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 13:44:16 by samy              #+#    #+#             */
-/*   Updated: 2023/07/10 00:59:10 by samy             ###   ########.fr       */
+/*   Updated: 2023/07/10 21:53:05 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ typedef struct s_data
 	char		*line;
 	char		*name;
 	char		*value;
-	char		**split;
-	int			nb_elem;
 	int			textures;
 	int			colors;
 	int			map;
@@ -33,6 +31,7 @@ void			check_file(char *path, char *file_type, t_game *game);
 int				is_valid_map(t_game *game);
 void			create_map(t_game *game);
 int				is_start_pos(char c);
+t_data			*init_data(t_data *d);
 int				is_accesible(int y, int x, t_game *game);
 int				is_valid_elem(int y, int x, t_game *game);
 int				set_start_pos(int row, int col, int *start_pos, t_game *game);

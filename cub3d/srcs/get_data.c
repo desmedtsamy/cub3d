@@ -6,7 +6,7 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 12:06:35 by samy              #+#    #+#             */
-/*   Updated: 2023/07/10 00:37:33 by samy             ###   ########.fr       */
+/*   Updated: 2023/07/10 22:49:27 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 static void	get_color(char *pos, char *color, t_game *game)
 {
-	if (color[ft_strlen(color) - 1] == '\n')
-		color[ft_strlen(color) - 1] = '\0';
 	if (ft_strcmp(pos, "F") == 0)
 		get_color_value(&game->floor_color, color, game);
 	else if (ft_strcmp(pos, "C") == 0)
@@ -28,8 +26,6 @@ static int	get_map(char *line, t_game *game)
 {
 	t_list	*new;
 
-	if (line[ft_strlen(line) - 1] == '\n')
-		line[ft_strlen(line) - 1] = '\0';
 	new = ft_lstnew(ft_strdup(line));
 	if (!new)
 		error_parsing("Malloc error", game);
@@ -46,7 +42,7 @@ static int	check_line(t_data *d, t_game *game)
 		else
 			error_parsing("invalid data in cub file", game);
 	}
-	else if ((ft_strcmp(d->name, "F") == 0 || ft_strcmp(d->name, "C") == 0)
+	else if ((!ft_strcmp(d->name, "F") || !ft_strcmp(d->name, "C"))
 		&& d->colors-- > 0)
 	{
 		if (d->textures == 4 || d->textures == 0)
@@ -64,20 +60,31 @@ static int	check_line(t_data *d, t_game *game)
 	return (0);
 }
 
-static void	split_data(t_data *d, t_game *game)
+static int	split_data(t_data *d, t_game *game)
 {
-	char	**split;
+	char	*tmp;
+	char	*line;
 
-	split = ft_split(d->line, ' ');
-	if (!split)
+	d->line = get_next_line(game->fd);
+	if (!d->line)
+		return (0);
+	d->line[ft_strlen(d->line) - 1] = '\0';
+	if (ft_is_empty(d->line))
 	{
-		free(d->line);
-		error_parsing("Malloc error", game);
+		d->name = NULL;
+		return (1);
 	}
-	d->name = split[0];
-	d->value = split[1];
-	d->nb_elem = ft_nb_split(split);
-	d->split = split;
+	line = ft_strtrim(d->line, " ");
+	if (*line == '1')
+	{
+		d->name = line;
+		return (1);
+	}
+	tmp = ft_strchr(line, ' ');
+	*tmp = '\0';
+	d->name = line;
+	d->value = ft_strtrim(tmp + 1, " ");
+	return (1);
 }
 
 void	get_data(t_game *game)
@@ -85,21 +92,16 @@ void	get_data(t_game *game)
 	int		result;
 	t_data	d;
 
-	init_data(game->fd, &d);
-	while (d.line)
+	init_data(&d);
+	while (split_data(&d, game))
 	{
-		split_data(&d, game);
-		if (d.nb_elem > 2 && ft_strncmp(d.name, "1", 1))
-			error_parsing("bad data inside cub file", game);
-		if (d.name && !ft_isempty(d.name))
+		if (d.name && !ft_is_empty(d.name))
 		{
 			result = check_line(&d, game);
 			if ((d.map && result != 42))
 				error_parsing("bad data inside map", game);
 		}
 		free(d.line);
-		ft_free_split(d.split);
-		d.line = get_next_line(game->fd);
 	}
 	free(d.line);
 	if (d.textures || d.colors || !d.map)

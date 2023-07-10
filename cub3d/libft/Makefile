@@ -6,7 +6,7 @@
 #    By: samy <samy@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/04 11:24:14 by samy              #+#    #+#              #
-#    Updated: 2023/06/27 21:58:08 by samy             ###   ########.fr        #
+#    Updated: 2023/07/10 22:06:16 by samy             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,7 +60,7 @@ SRC = 	ft_atoi.c\
 		ft_str_is_numeric.c\
 		ft_is_quote.c\
 		ft_is_space.c\
-		ft_isempty.c\
+		ft_is_empty.c\
 		ft_join_and_assign.c
 
 BONUS = ft_lstnew.c\

@@ -6,7 +6,7 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 11:54:40 by samy              #+#    #+#             */
-/*   Updated: 2023/07/10 00:40:43 by samy             ###   ########.fr       */
+/*   Updated: 2023/07/10 22:00:16 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,6 @@ typedef struct s_player
 
 typedef struct s_textures
 {
-	char		*no_texture_path;
-	char		*so_texture_path;
-	char		*we_texture_path;
-	char		*ea_texture_path;
 	void		*no_texture;
 	void		*so_texture;
 	void		*we_texture;
@@ -99,6 +95,5 @@ void			get_texture(char *pos, char *xpm_path, t_game *game);
 void			get_color_value(int *color, char *str, t_game *game);
 t_pos			*set_pos(double x, double y, t_pos *pos);
 void			free_game(t_game *game);
-t_data			*init_data(int fd, t_data *d);
 void			error_parsing(char *message, t_game *game);
 #endif

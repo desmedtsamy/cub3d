@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 20:30:32 by samy              #+#    #+#             */
-/*   Updated: 2023/07/10 11:39:18 by sde-smed         ###   ########.fr       */
+/*   Updated: 2023/07/10 23:02:00 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,15 @@ void	error(char *message, t_game *game)
 
 void	error_parsing(char *message, t_game *game)
 {
-	if (game->fd)
-		close(game->fd);
-	if (game->map_list)
+	if (game)
 	{
-		ft_lstclear(&game->map_list, free);
-		game->map_list = NULL;
+		if (game->fd)
+			close(game->fd);
+		if (game->map_list)
+		{
+			ft_lstclear(&game->map_list, free);
+			game->map_list = NULL;
+		}
 	}
 	error(message, game);
 }

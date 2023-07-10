@@ -6,7 +6,7 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 12:01:02 by samy              #+#    #+#             */
-/*   Updated: 2023/07/10 00:59:06 by samy             ###   ########.fr       */
+/*   Updated: 2023/07/10 22:59:16 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ t_game	*parsing(int argc, char **argv, t_game *game)
 	game->fd = open_file(argv[1]);
 	get_data(game);
 	close(game->fd);
+	game->fd = 0;
 	create_map(game);
 	is_valid_map(game);
 	return (game);

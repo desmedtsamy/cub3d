@@ -6,7 +6,7 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 19:09:52 by samy              #+#    #+#             */
-/*   Updated: 2023/06/22 14:58:13 by samy             ###   ########.fr       */
+/*   Updated: 2023/07/10 22:06:16 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,5 +89,5 @@ int					ft_nb_split(char **split);
 int					ft_str_is_numeric(char *str);
 int					ft_is_quote(char c);
 int					ft_is_space(int c);
-int					ft_isempty(char *str);
+int					ft_is_empty(char *str);
 #endif

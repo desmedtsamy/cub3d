@@ -3,14 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hgeissle <hgeissle@student.s19.be>         +#+  +:+       +#+        */
+/*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 12:08:31 by samy              #+#    #+#             */
-/*   Updated: 2023/07/10 13:58:41 by hgeissle         ###   ########.fr       */
+/*   Updated: 2023/07/10 23:00:24 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+static int	get_color(char *str, t_game *game)
+{
+	char	*number;
+	int		nb;
+
+	number = ft_strtrim(str, " ");
+	nb = -1;
+	while (number[++nb])
+		if (!ft_isdigit(number[nb]))
+			error_parsing("bad elem in color", game);
+	if (ft_strlen(number) > 3)
+		error_parsing("bad elem in color", game);
+	nb = ft_atoi(number);
+	if (nb < 0 || nb > 255)
+		error_parsing("bad elem in color", game);
+	return (nb);
+}
 
 void	get_color_value(int *color, char *str, t_game *game)
 {
@@ -19,21 +37,16 @@ void	get_color_value(int *color, char *str, t_game *game)
 	int		g;
 	int		b;
 
-	if (ft_isempty(str) || str[ft_strlen(str) - 1] == ',')
+	if (ft_is_empty(str) || str[ft_strlen(str) - 1] == ',')
 		error_parsing("bad elem in color", game);
 	split = ft_split(str, ',');
 	if (!split)
 		error_parsing("Malloc error", game);
 	if (ft_nb_split(split) != 3)
 		error_parsing("bad elem in color", game);
-	if (ft_strlen(split[0]) > 3 || ft_strlen(split[1]) > 3
-		|| ft_strlen(split[2]) > 3)
-		error_parsing("bad elem in color", game);
-	r = ft_atoi(split[0]);
-	g = ft_atoi(split[1]);
-	b = ft_atoi(split[2]);
-	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
-		error_parsing("bad elem in color", game);
+	r = get_color(split[0], game);
+	g = get_color(split[1], game);
+	b = get_color(split[2], game);
 	ft_free_split(split);
 	*color = (r << 16 | g << 8 | b);
 }

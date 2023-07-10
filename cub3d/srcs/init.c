@@ -6,7 +6,7 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 00:36:50 by samy              #+#    #+#             */
-/*   Updated: 2023/07/10 00:52:21 by samy             ###   ########.fr       */
+/*   Updated: 2023/07/10 22:00:22 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,14 @@ void	init_minimap(t_game *game)
 	game->minimap.player_color = PLAYER_COLOR;
 }
 
-t_data	*init_data(int fd, t_data *d)
+t_data	*init_data(t_data *d)
 {
 	d->textures = 4;
 	d->colors = 2;
 	d->map = 0;
-	d->line = get_next_line(fd);
+	d->line = NULL;
 	d->name = NULL;
 	d->value = NULL;
-	d->split = NULL;
-	d->nb_elem = 0;
 	return (d);
 }
 
@@ -39,10 +37,6 @@ static void	init_textures(t_textures *textures)
 	textures->so_texture = NULL;
 	textures->we_texture = NULL;
 	textures->ea_texture = NULL;
-	textures->no_texture_path = NULL;
-	textures->so_texture_path = NULL;
-	textures->we_texture_path = NULL;
-	textures->ea_texture_path = NULL;
 }
 
 t_game	*init_game(t_game *game)

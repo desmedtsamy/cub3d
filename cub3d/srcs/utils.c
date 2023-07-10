@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hgeissle <hgeissle@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 12:08:31 by samy              #+#    #+#             */
-/*   Updated: 2023/07/10 11:09:41 by sde-smed         ###   ########.fr       */
+/*   Updated: 2023/07/10 13:58:41 by hgeissle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,25 +38,6 @@ void	get_color_value(int *color, char *str, t_game *game)
 	*color = (r << 16 | g << 8 | b);
 }
 
-static void	img_pixel_put(int x, int y, int color, t_img img)
-{
-	char	*pixel_addr;
-
-	pixel_addr = img.addr + (y * img.sl) + (x * (img.bpp / 8));
-	if (img.endian == 0)
-	{
-		pixel_addr[0] = color & 0xFF;
-		pixel_addr[1] = (color >> 8) & 0xFF;
-		pixel_addr[2] = (color >> 16) & 0xFF;
-	}
-	else
-	{
-		pixel_addr[0] = (color >> 16) & 0xFF;
-		pixel_addr[1] = (color >> 8) & 0xFF;
-		pixel_addr[2] = color & 0xFF;
-	}
-}
-
 void	draw_rect(t_rect *r, t_pos *max_p, int color, t_game *g)
 {
 	int		i;
@@ -77,7 +58,7 @@ void	draw_rect(t_rect *r, t_pos *max_p, int color, t_game *g)
 		j = 0;
 		while (j < r->end_pos->x && r->pos->x + j < max.x)
 		{
-			img_pixel_put (r->pos->x + j, r->pos->y + i, color, g->img);
+			ft_mlx_pixel_put(g, r->pos->x + j, r->pos->y + i, color);
 			j++;
 		}
 		i++;

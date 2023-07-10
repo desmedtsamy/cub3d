@@ -6,7 +6,7 @@
 /*   By: hgeissle <hgeissle@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 17:24:55 by hgeissle          #+#    #+#             */
-/*   Updated: 2023/07/09 17:40:52 by hgeissle         ###   ########.fr       */
+/*   Updated: 2023/07/09 18:11:04 by hgeissle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,17 +60,15 @@ int	raycasting(t_game *game)
 	double	win_x;
 	int		x;
 	double	dist;
-	double	w;
 	int		tex_x;
 
 	x = 0;
-	w = (double)WIN_W;
 	game->img.ptr = mlx_new_image(game->mlx, WIN_W, WIN_H);
 	game->img.addr = mlx_get_data_addr(game->img.ptr, &game->img.bpp,
 			&game->img.sl, &game->img.endian);
 	while (x < WIN_W - 1)
 	{
-		win_x = 2 * (double)x / w - 1;
+		win_x = 2 * (double)x / (double)WIN_W - 1;
 		game->p.ray.x = game->p.dir.x + win_x * game->p.plane.x;
 		game->p.ray.y = game->p.dir.y + win_x * game->p.plane.y;
 		dist = length_until_hit(game);

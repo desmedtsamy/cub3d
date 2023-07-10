@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 12:08:31 by samy              #+#    #+#             */
-/*   Updated: 2023/07/10 00:57:42 by samy             ###   ########.fr       */
+/*   Updated: 2023/07/10 11:09:41 by sde-smed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	get_color_value(int *color, char *str, t_game *game)
 		error_parsing("bad elem in color", game);
 	split = ft_split(str, ',');
 	if (!split)
-		error("Malloc error", game);
+		error_parsing("Malloc error", game);
 	if (ft_nb_split(split) != 3)
 		error_parsing("bad elem in color", game);
 	if (ft_strlen(split[0]) > 3 || ft_strlen(split[1]) > 3

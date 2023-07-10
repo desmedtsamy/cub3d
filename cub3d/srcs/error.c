@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 20:30:32 by samy              #+#    #+#             */
-/*   Updated: 2023/07/10 00:34:39 by samy             ###   ########.fr       */
+/*   Updated: 2023/07/10 11:39:18 by sde-smed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	free_game(t_game *game)
 	i = -1;
 	if (game->map)
 	{
-		while (game->map[++i])
+		while (game->map[++i] && i < game->map_height)
 			free(game->map[i]);
 		free(game->map);
 	}
@@ -27,13 +27,13 @@ void	free_game(t_game *game)
 	{
 		if (game->textures.no_texture)
 			mlx_destroy_image(game->mlx, game->textures.no_texture);
-		else if (game->textures.so_texture)
+		if (game->textures.so_texture)
 			mlx_destroy_image(game->mlx, game->textures.so_texture);
-		else if (game->textures.we_texture)
+		if (game->textures.we_texture)
 			mlx_destroy_image(game->mlx, game->textures.we_texture);
-		else if (game->textures.ea_texture)
+		if (game->textures.ea_texture)
 			mlx_destroy_image(game->mlx, game->textures.ea_texture);
-		else if (game->window)
+		if (game->window)
 			mlx_destroy_window(game->mlx, game->window);
 	}
 }

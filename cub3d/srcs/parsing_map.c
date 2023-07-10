@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_map.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:13:03 by samy              #+#    #+#             */
-/*   Updated: 2023/07/10 01:02:45 by samy             ###   ########.fr       */
+/*   Updated: 2023/07/10 11:36:35 by sde-smed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,15 @@ void	create_map(t_game *game)
 
 	index = 0;
 	game->map_height = ft_lstsize(game->map_list);
-	game->map = ft_calloc(sizeof(char *), game->map_height + 1);
+	game->map = ft_calloc(sizeof(char *), game->map_height);
 	if (!game->map)
-		error("Malloc error", game);
+		error_parsing("Malloc error", game);
 	set_width(game);
 	row = game->map_list;
 	while (row)
 	{
 		i = -1;
-		game->map[index] = ft_calloc(sizeof(char), game->map_width + 1);
+		game->map[index] = ft_calloc(sizeof(char), game->map_width);
 		c = (char *)row->content;
 		while (++i < game->map_width && c[i])
 			game->map[index][i] = c[i];

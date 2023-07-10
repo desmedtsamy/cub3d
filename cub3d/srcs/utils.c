@@ -6,7 +6,7 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 12:08:31 by samy              #+#    #+#             */
-/*   Updated: 2023/07/10 23:00:24 by samy             ###   ########.fr       */
+/*   Updated: 2023/07/10 23:48:18 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ static int	get_color(char *str, t_game *game)
 	int		nb;
 
 	number = ft_strtrim(str, " ");
+	if (!number)
+		error_parsing("Malloc error", game);
 	nb = -1;
 	while (number[++nb])
 		if (!ft_isdigit(number[nb]))

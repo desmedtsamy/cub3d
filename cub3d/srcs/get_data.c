@@ -6,7 +6,7 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 12:06:35 by samy              #+#    #+#             */
-/*   Updated: 2023/07/10 22:49:27 by samy             ###   ########.fr       */
+/*   Updated: 2023/07/10 23:47:49 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ static int	check_line(t_data *d, t_game *game)
 static int	split_data(t_data *d, t_game *game)
 {
 	char	*tmp;
-	char	*line;
 
 	d->line = get_next_line(game->fd);
 	if (!d->line)
@@ -74,16 +73,16 @@ static int	split_data(t_data *d, t_game *game)
 		d->name = NULL;
 		return (1);
 	}
-	line = ft_strtrim(d->line, " ");
-	if (*line == '1')
-	{
-		d->name = line;
+	d->name = ft_strtrim(d->line, " ");
+	if (!d->name)
+		error_parsing("Malloc error", game);
+	if (*d->name == '1')
 		return (1);
-	}
-	tmp = ft_strchr(line, ' ');
+	tmp = ft_strchr(d->name, ' ');
 	*tmp = '\0';
-	d->name = line;
 	d->value = ft_strtrim(tmp + 1, " ");
+	if (!d->value)
+		error_parsing("Malloc error", game);
 	return (1);
 }
 
@@ -101,6 +100,9 @@ void	get_data(t_game *game)
 			if ((d.map && result != 42))
 				error_parsing("bad data inside map", game);
 		}
+		free(d.name);
+		d.name = NULL;
+		d.value = NULL;
 		free(d.line);
 	}
 	free(d.line);

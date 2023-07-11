@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hgeissle <hgeissle@student.s19.be>         +#+  +:+       +#+         #
+#    By: samy <samy@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/30 11:51:56 by sde-smed          #+#    #+#              #
-#    Updated: 2023/07/09 17:31:44 by hgeissle         ###   ########.fr        #
+#    Updated: 2023/07/11 21:50:17 by samy             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ SRCS	= 	main.c\
 			rotations.c\
 			ray_length.c\
 			use_textures.c\
+			get_color.c
 
 LIBFT	= libft/
 

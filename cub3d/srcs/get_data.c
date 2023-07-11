@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_data.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 12:06:35 by samy              #+#    #+#             */
-/*   Updated: 2023/07/11 13:24:38 by sde-smed         ###   ########.fr       */
+/*   Updated: 2023/07/11 21:40:39 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,9 @@ void	get_data(t_game *game)
 	init_data(&d);
 	while (split_data(&d, game))
 	{
-		if ((d.name && !ft_is_empty(d.name)) || d.map)
+		if ((!d.name || ft_is_empty(d.name)) && d.map)
+			error_parsing("empty line inside map", game);
+		if (d.name && !ft_is_empty(d.name))
 		{
 			result = check_line(&d, game);
 			if ((d.map && result != 42))

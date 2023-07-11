@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   moves.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hgeissle <hgeissle@student.s19.be>         +#+  +:+       +#+        */
+/*   By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:16:51 by samy              #+#    #+#             */
-/*   Updated: 2023/07/09 17:06:06 by hgeissle         ###   ########.fr       */
+/*   Updated: 2023/07/11 11:55:09 by sde-smed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,13 @@ void	move_forward(t_game *game, int x)
 		game->p.pos.x -= (speed * x) * game->p.dir.x;
 		game->p.pos.y -= (speed * x) * game->p.dir.y;
 	}
-	else
+	else if (is_valid_elem(new_y, new_x, game))
 		slide(game, new_x, new_y, x);
+	else if (is_accesible(game->p.pos.x, game->p.pos.y, game))
+	{
+		game->p.pos.x -= (speed * x) * game->p.dir.x;
+		game->p.pos.y -= (speed * x) * game->p.dir.y;
+	}
 }
 
 void	move_sideways(t_game *game, int y)

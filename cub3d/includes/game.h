@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 21:55:23 by samy              #+#    #+#             */
-/*   Updated: 2023/07/09 23:51:34 by samy             ###   ########.fr       */
+/*   Updated: 2023/07/11 12:08:36 by sde-smed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # define WIN_W 1280
 # define WIN_H 720
 # define XPM_SIZE 64
-# define FOV 80
+# define FOV 70
 # define MOVE_SPEED 0.08
 # define SIDE_SPEED 0.05
 # define CAMERA_SPEED 0.1

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:51:23 by samy              #+#    #+#             */
-/*   Updated: 2023/07/10 00:57:17 by samy             ###   ########.fr       */
+/*   Updated: 2023/07/11 12:03:13 by sde-smed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,11 @@ void	minimap(t_game *game)
 	t_pos	start;
 	t_pos	pos_max;
 
-	set_pos(MINI_START, MINI_START, &start);
-	set_pos(MINI_X, MINI_Y, &size);
-	set_pos((MINI_X + MINI_START), (MINI_Y + MINI_START), &pos_max);
-	draw_minimap(&start, &size, &pos_max, game);
-	mlx_put_image_to_window(game->mlx, game->window, game->img.ptr, 0, 0);
-	mlx_destroy_image(game->mlx, game->img.ptr);
+	if (MINI_X + MINI_START < WIN_W && MINI_Y + MINI_START < WIN_H)
+	{
+		set_pos(MINI_START, MINI_START, &start);
+		set_pos(MINI_X, MINI_Y, &size);
+		set_pos((MINI_X + MINI_START), (MINI_Y + MINI_START), &pos_max);
+		draw_minimap(&start, &size, &pos_max, game);
+	}
 }

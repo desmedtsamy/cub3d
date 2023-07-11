@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_data.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 12:06:35 by samy              #+#    #+#             */
-/*   Updated: 2023/07/10 23:47:49 by samy             ###   ########.fr       */
+/*   Updated: 2023/07/11 12:56:24 by sde-smed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,26 +35,16 @@ static int	get_map(char *line, t_game *game)
 
 static int	check_line(t_data *d, t_game *game)
 {
-	if (is_dir(d->name) && d->textures-- > 0)
-	{
-		if (d->colors == 2 || d->colors == 0)
-			get_texture(d->name, d->value, game);
-		else
-			error_parsing("invalid data in cub file", game);
-	}
-	else if ((!ft_strcmp(d->name, "F") || !ft_strcmp(d->name, "C"))
-		&& d->colors-- > 0)
-	{
-		if (d->textures == 4 || d->textures == 0)
-			get_color(d->name, d->value, game);
-		else
-			error_parsing("invalid data in cub file", game);
-	}
-	else if (!ft_strncmp(d->name, "1", 1))
+	if (!d->name || *d->name == '1' || *d->name == '0')
 	{
 		d->map = 1;
 		return (get_map(d->line, game));
 	}
+	else if (is_dir(d->name) && d->textures-- > 0)
+		get_texture(d->name, d->value, game);
+	else if ((!ft_strcmp(d->name, "F") || !ft_strcmp(d->name, "C"))
+		&& d->colors-- > 0)
+		get_color(d->name, d->value, game);
 	else
 		error_parsing("unknown data inside cub file", game);
 	return (0);
@@ -69,20 +59,20 @@ static int	split_data(t_data *d, t_game *game)
 		return (0);
 	d->line[ft_strlen(d->line) - 1] = '\0';
 	if (ft_is_empty(d->line))
-	{
-		d->name = NULL;
 		return (1);
-	}
 	d->name = ft_strtrim(d->line, " ");
 	if (!d->name)
 		error_parsing("Malloc error", game);
-	if (*d->name == '1')
+	if (*d->name == '1' || *d->name == '0')
 		return (1);
 	tmp = ft_strchr(d->name, ' ');
-	*tmp = '\0';
-	d->value = ft_strtrim(tmp + 1, " ");
-	if (!d->value)
-		error_parsing("Malloc error", game);
+	if (tmp)
+	{
+		*tmp = '\0';
+		d->value = ft_strtrim(tmp + 1, " ");
+		if (!d->value)
+			error_parsing("Malloc error", game);
+	}
 	return (1);
 }
 
@@ -94,7 +84,7 @@ void	get_data(t_game *game)
 	init_data(&d);
 	while (split_data(&d, game))
 	{
-		if (d.name && !ft_is_empty(d.name))
+		if ((d.name && !ft_is_empty(d.name)) || d.map)
 		{
 			result = check_line(&d, game);
 			if ((d.map && result != 42))

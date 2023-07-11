@@ -6,7 +6,7 @@
 /*   By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 12:06:35 by samy              #+#    #+#             */
-/*   Updated: 2023/07/11 12:56:24 by sde-smed         ###   ########.fr       */
+/*   Updated: 2023/07/11 13:24:38 by sde-smed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ static int	split_data(t_data *d, t_game *game)
 	d->line = get_next_line(game->fd);
 	if (!d->line)
 		return (0);
-	d->line[ft_strlen(d->line) - 1] = '\0';
+	if (d->line[ft_strlen(d->line) - 1] == '\n')
+		d->line[ft_strlen(d->line) - 1] = '\0';
 	if (ft_is_empty(d->line))
 		return (1);
 	d->name = ft_strtrim(d->line, " ");

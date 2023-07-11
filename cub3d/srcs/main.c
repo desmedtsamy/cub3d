@@ -6,7 +6,7 @@
 /*   By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 11:48:42 by samy              #+#    #+#             */
-/*   Updated: 2023/07/11 12:04:17 by sde-smed         ###   ########.fr       */
+/*   Updated: 2023/07/11 13:16:36 by sde-smed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ int	main(int argc, char **argv)
 		ft_putstr_fd("can't print minimap, size is too big\n", 2);
 	else
 		minimap(&game);
+	game.window = mlx_new_window(game.mlx, WIN_W, WIN_H, "Cub3D");
 	mlx_put_image_to_window(game.mlx, game.window, game.img.ptr, 0, 0);
 	mlx_destroy_image(game.mlx, game.img.ptr);
 	mlx_hook(game.window, KEYPRESS, (1L << 0), deal_keys, &game);

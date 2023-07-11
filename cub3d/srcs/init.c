@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 00:36:50 by samy              #+#    #+#             */
-/*   Updated: 2023/07/10 22:00:22 by samy             ###   ########.fr       */
+/*   Updated: 2023/07/11 13:16:48 by sde-smed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	init_textures(t_textures *textures)
 t_game	*init_game(t_game *game)
 {
 	game->mlx = mlx_init();
-	game->window = mlx_new_window(game->mlx, WIN_W, WIN_H, "Cub3D");
+	game->window = NULL;
 	game->map_width = 0;
 	game->map_height = 0;
 	game->map = NULL;

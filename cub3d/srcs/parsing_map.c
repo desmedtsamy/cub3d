@@ -6,7 +6,7 @@
 /*   By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:13:03 by samy              #+#    #+#             */
-/*   Updated: 2023/07/11 12:59:16 by sde-smed         ###   ########.fr       */
+/*   Updated: 2023/07/11 13:15:55 by sde-smed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int	is_valid_map(t_game *game)
 					error("multiple start position", game);
 			if (game->map[row][col] == '0' || is_start_pos(game->map[row][col]))
 				if (!is_valid_pos(row, col, game->map, game))
-					error("the map was not surrounded by walls", game);
+					error("the map isn't surrounded by walls", game);
 		}
 	}
 	if (!start_pos)

@@ -1,10 +1,10 @@
-NO ./assets/xpm/minecraft/wood.xpm      
-SO ./assets/xpm/minecraft/wood.xpm
-EA ./assets/xpm/minecraft/wood.xpm
-WE ./assets/xpm/minecraft/wood.xpm
+NO ./assets/xpm/rick.xpm      
+SO ./assets/xpm/rick.xpm
+EA ./assets/xpm/rick.xpm
+WE ./assets/xpm/rick.xpm
 
-F 90,108,48
-C 110,157,211
+C 194,255,245
+F 255,192,203
 
 
 

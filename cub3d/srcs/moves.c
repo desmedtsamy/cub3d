@@ -6,7 +6,7 @@
 /*   By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:16:51 by samy              #+#    #+#             */
-/*   Updated: 2023/07/12 10:40:33 by sde-smed         ###   ########.fr       */
+/*   Updated: 2023/07/12 10:57:48 by sde-smed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,20 @@ void	move_sideways(t_game *game, int y)
 	}
 	else
 		side_slide(game, new_x, new_y, y);
+}
+
+void	moves(t_game *game)
+{
+	if (game->move.forward)
+		move_forward(game, -1);
+	if (game->move.backward)
+		move_forward(game, 1);
+	if (game->move.left)
+		move_sideways(game, -1);
+	if (game->move.right)
+		move_sideways(game, 1);
+	if (game->move.turn_left)
+		rotate_left(game);
+	if (game->move.turn_right)
+		rotate_right(game);
 }

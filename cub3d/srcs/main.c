@@ -6,7 +6,7 @@
 /*   By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 11:48:42 by samy              #+#    #+#             */
-/*   Updated: 2023/07/11 13:16:36 by sde-smed         ###   ########.fr       */
+/*   Updated: 2023/07/12 10:57:03 by sde-smed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,24 +23,14 @@ static int	update(void *param)
 	t_game	*game;
 
 	game = (t_game *)param;
-	if (game->move.forward)
-		move_forward(game, -1);
-	if (game->move.backward)
-		move_forward(game, 1);
-	if (game->move.left)
-		move_sideways(game, -1);
-	if (game->move.right)
-		move_sideways(game, 1);
-	if (game->move.turn_left)
-		rotate_left(game);
-	if (game->move.turn_right)
-		rotate_right(game);
 	if (game->move.forward || game->move.backward || game->move.left
 		|| game->move.right || game->move.turn_right || game->move.turn_left)
 	{
+		moves(game);
 		mlx_clear_window(game->mlx, game->window);
 		raycasting(game);
-		minimap(game);
+		if (MINI_X + MINI_START < WIN_W && MINI_Y + MINI_START < WIN_H)
+			minimap(game);
 		mlx_put_image_to_window(game->mlx, game->window, game->img.ptr, 0, 0);
 		mlx_destroy_image(game->mlx, game->img.ptr);
 	}

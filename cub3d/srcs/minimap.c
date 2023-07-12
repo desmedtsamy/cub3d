@@ -6,7 +6,7 @@
 /*   By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:51:23 by samy              #+#    #+#             */
-/*   Updated: 2023/07/11 12:03:13 by sde-smed         ###   ########.fr       */
+/*   Updated: 2023/07/12 10:57:34 by sde-smed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,8 @@ void	minimap(t_game *game)
 	t_pos	start;
 	t_pos	pos_max;
 
-	if (MINI_X + MINI_START < WIN_W && MINI_Y + MINI_START < WIN_H)
-	{
-		set_pos(MINI_START, MINI_START, &start);
-		set_pos(MINI_X, MINI_Y, &size);
-		set_pos((MINI_X + MINI_START), (MINI_Y + MINI_START), &pos_max);
-		draw_minimap(&start, &size, &pos_max, game);
-	}
+	set_pos(MINI_START, MINI_START, &start);
+	set_pos(MINI_X, MINI_Y, &size);
+	set_pos((MINI_X + MINI_START), (MINI_Y + MINI_START), &pos_max);
+	draw_minimap(&start, &size, &pos_max, game);
 }

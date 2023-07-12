@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 19:09:52 by samy              #+#    #+#             */
-/*   Updated: 2023/07/10 22:06:16 by samy             ###   ########.fr       */
+/*   Updated: 2023/07/12 10:28:03 by sde-smed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,4 +90,5 @@ int					ft_str_is_numeric(char *str);
 int					ft_is_quote(char c);
 int					ft_is_space(int c);
 int					ft_is_empty(char *str);
+int					count_nb_chr(char c, char *str);
 #endif
